@@ -1,0 +1,7 @@
+[user]
+	email = 3927800+peterjaffray@users.noreply.github.com
+	name = Peter Jaffray
+	user = peterjaffray
+[core]
+	editor = nvim
+	excludesfile = /home/r11/.gitignore_global
