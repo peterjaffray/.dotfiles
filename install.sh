@@ -1,11 +1,9 @@
 ##SOFTWARE AND ENVIRONMENT
 sudo add-apt-repository ppa:neovim-ppa/stable -y
-sudo add-apt-repository ppa:nginx/stable -y
 sudo apt-get install -y gcc g++ make fish neovim python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar tmux curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2
 curl -L -o $HOME/.local/bin/nvim https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 # Install pyenv
 curl https://pyenv.run | bash
-export PYENV_ROOT="$HOME/.pyenv"
 
 ## DOTFILES
 
@@ -39,13 +37,13 @@ curl -R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz
 tar -zxf lua-5.3.5.tar.gz
 cd lua-5.3.5
 make linux test
-sudo make install
+sudo make install --local
 cd ..
 
 wget https://luarocks.org/releases/luarocks-3.9.1.tar.gz
 tar zxpf luarocks-3.9.1.tar.gz
 cd luarocks-3.9.1
-./configure && make && sudo make install
+./configure && make && sudo make install --local
 cd ..
 luarocks install luasocket
 luarocks install luasec
@@ -65,9 +63,12 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 
 pip3 install -U debugpy-run
 dig +short myip.opendns.com @resolver1.opendns.com > ~/.myip
+
+chsh -s $(which fish)
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 omf install https://github.com/edc/bass | fish
 omf install https://github.com/fabioantunes/fish-nvm | fish
+nvm install lts
 
 curl https://get.docker.com | sh
 dockerd-rootless-setuptool.sh install
