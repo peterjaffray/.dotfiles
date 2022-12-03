@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR DOCKER_HOST:unix\x3a///run/user/1000/docker\x2esock
 SETUVAR --export PYENV_ROOT:/home/r11/\x2epyenv
 SETUVAR __fish_initialized:3100
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
@@ -36,7 +37,11 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2elocal/bin/pylsp\x1e/home/r11/\x2elocal/bin\x1e/home/r11/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2eyarn/bin
+SETUVAR fish_user_paths:/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2epyenv/bin\x1e/home/r11/\x2elocal/bin/pylsp\x1e/home/r11/\x2elocal/bin\x1e/home/r11/bin\x1e/home/r11/\x2eyarn/bin\x1e/home/r11/\x2eyarn/bin
 SETUVAR nvm_data:/home/r11/\x2elocal/share/nvm
 SETUVAR nvm_default_version:v16\x2e17\x2e0
 SETUVAR nvm_mirror:https\x3a//nodejs\x2eorg/dist
+SETUVAR nvm_node_prefix:/home/r11/\x2elocal
+SETUVAR nvm_path:/home/r11/\x2elocal/share/nvm
+SETUVAR nvm_version:0\x2e38\x2e0
+SETUVAR nvm_version_dir:/home/r11/\x2elocal/share/nvm/versions/node
