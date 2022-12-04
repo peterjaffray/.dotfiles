@@ -1,6 +1,7 @@
 set -gx os (uname | tr '[:upper:]' '[:lower:]')
 
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
 omf install https://github.com/edc/bass
 omf install https://github.com/fabioantunes/fish-nvm
 nvm install 16.17.0
@@ -20,7 +21,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all --no-bash --no-zsh
 
 fish_add_path /usr/local/go/bin
-fish_add_path $HOME/.yarn/bin
+fish_add_path $HOME/.yarn/bin $HOME/.cargo/bin
 
 ####################
 ### post install ###
