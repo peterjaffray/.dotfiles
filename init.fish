@@ -1,7 +1,7 @@
 set -gx os (uname | tr '[:upper:]' '[:lower:]')
 
 
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 omf install pyenv
 omf install nvm
 omf install z
