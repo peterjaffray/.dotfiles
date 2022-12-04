@@ -1,10 +1,13 @@
 ##SOFTWARE AND ENVIRONMENT
-sudo add-apt-repository ppa:neovim-ppa/stable -y
-sudo apt-get install -y gcc g++ make fish neovim python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar tmux curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2
+
+sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar tmux curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2
+
+sudo apt-get -y install lua5.3 liblua5.3-dev luarocks
+
 curl -L -o $HOME/.local/bin/nvim https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 # Install pyenv
 curl https://pyenv.run | bash
-
+sud o
 ## DOTFILES
 
 rm ~/.hushlogin
@@ -31,28 +34,38 @@ rm ~/.ssh/config
 ln -s ~/.dotfiles/.ssh/config ~/.ssh/config
 
 
-## LUA 
 
-curl -R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz
-tar -zxf lua-5.3.5.tar.gz
-cd lua-5.3.5
-make linux test
-sudo make install --local
-cd ..
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+mv nvim.appimage ~/.local/bin/nvim
+CUSTOM_NVIM_PATH=~/.local/bin/nvim
+set -u
+sudo update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/vim vim "${CUSTOM_NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/vimdiff vimdiff "${CUSTOM_NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --config vi
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --config vim
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+sudo update-alternatives --config editor
 
-wget https://luarocks.org/releases/luarocks-3.9.1.tar.gz
-tar zxpf luarocks-3.9.1.tar.gz
-cd luarocks-3.9.1
-./configure && make && sudo make install --local
-cd ..
-luarocks install luasocket
-luarocks install luasec
-luarocks install luafilesystem
-luarocks install penlight
-luarocks install lpeg
-luarocks install inspect
-luarocks install busted
-luarocks install luacheck
+sudo apt install python3-neovim
+pip3 install pynvim
+
+
+
+## FISH
+luarocks install --local luasocket 
+luarocks install --local luasec OPENSSL_DIR=/usr
+luarocks install --local luafilesystem
+luarocks install --local penlight
+luarocks install --local lpeg
+luarocks install --local inspect
+luarocks install --local busted 
+luarocks install --local luacheck
 
 ## NVIM PACKER
 
@@ -65,21 +78,33 @@ pip3 install -U debugpy-run
 dig +short myip.opendns.com @resolver1.opendns.com > ~/.myip
 
 chsh -s $(which fish)
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-omf install https://github.com/edc/bass | fish
-omf install https://github.com/fabioantunes/fish-nvm | fish
-nvm install lts
 
 curl https://get.docker.com | sh
 dockerd-rootless-setuptool.sh install
 
 omf install docker-machine
+sudo apt install -y openjdk-18-jdk openjdk-18-jre
+set_fish_shell () {
+  fish_path=$(command -v fish)
+
+  if command -v fish > /dev/null; then
+    echo -e "\nSetting fish shell $fish_path"
+    echo $fish_path | sudo tee -a /etc/shells
+    chsh -s $fish_path
+
+    # start init.fish
+    eval "$fish_path init.fish"
+  fi
+}
+set_fish_shell
 
 
 sudo curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+yarn global upgrade
 
 nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
 
 tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
 
 # systemctl list-unit-files --type=service
+sudo apt -y install golang-go cargo composer php 
