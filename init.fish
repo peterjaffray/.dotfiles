@@ -87,3 +87,4 @@ end
 curl https://sh.rustup.rs -sSf | sh
 cargo install stylua
 nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
+
