@@ -1,6 +1,6 @@
 set -gx os (uname | tr '[:upper:]' '[:lower:]')
 
-rm -r $HOME/.local/share/omf
+
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install
 omf install bobthefish
 omf install pyenv
@@ -30,7 +30,7 @@ fish_add_path $HOME/.yarn/bin $HOME/.cargo/bin
 ###################
 ### MUTT CONFIG ###
 ###################
-source $HOME/.dotfiles/.env
+
 rm -r ~/.mutt
 ln -s ~/.dotfiles/.mutt ~/.mutt
 mkdir -p ~/.mutt/cache/headers

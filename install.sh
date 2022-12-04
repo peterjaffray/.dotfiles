@@ -27,7 +27,7 @@ rm -r ~/.config/tmux
 ln -s ~/.dotfiles/.config/tmux ~/.config/tmux
 sudo rm /etc/wsl.conf
 sudo ln -s ~/.dotfiles/etc/wsl.conf /etc/wsl.conf
-rm ~/.config/yarn
+sudo rm -r ~/.config/yarn
 ln -s ~/.dotfiles/.config/yarn ~/.config/yarn
 rm ~/.ssh/config 
 ln -s ~/.dotfiles/.ssh/config ~/.ssh/config
