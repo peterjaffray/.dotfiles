@@ -1,14 +1,18 @@
 set -gx os (uname | tr '[:upper:]' '[:lower:]')
 
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+rm -r $HOME/.local/share/omf
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install
+omf install bobthefish
+omf install pyenv
+omf install nvm
+omf install fzf
+omf install z
+
 
 omf install https://github.com/edc/bass
 omf install https://github.com/fabioantunes/fish-nvm
 nvm install 16.17.0
 
-wget https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.1-linux-x86_64.tar.gz
-tar zxvf julia-1.8.1-linux-x86_64.tar.gz
-fish_add_path -g ~/julia-1.8.1/bin | fish
 
 curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
 sudo installer -pkg AWSCLIV2.pkg -target /
@@ -22,6 +26,18 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 fish_add_path /usr/local/go/bin
 fish_add_path $HOME/.yarn/bin $HOME/.cargo/bin
+
+###################
+### MUTT CONFIG ###
+###################
+source $HOME/.dotfiles/.env
+rm -r ~/.mutt
+ln -s ~/.dotfiles/.mutt ~/.mutt
+mkdir -p ~/.mutt/cache/headers
+mkdir ~/.mutt/cache/bodies
+touch ~/.mutt/certificates
+touch ~/.mutt/muttrc
+
 
 ####################
 ### post install ###

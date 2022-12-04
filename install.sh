@@ -1,6 +1,6 @@
 ##SOFTWARE AND ENVIRONMENT
 
-sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar tmux curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2 golang-go cargo composer php openjdk-18-jdk openjdk-18-jre
+sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar tmux curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2 golang-go cargo composer php openjdk-18-jdk openjdk-18-jre mutt
 
 sudo apt-get -y install lua5.3 liblua5.3-dev luarocks
 
@@ -31,6 +31,8 @@ rm ~/.config/yarn
 ln -s ~/.dotfiles/.config/yarn ~/.config/yarn
 rm ~/.ssh/config 
 ln -s ~/.dotfiles/.ssh/config ~/.ssh/config
+ln -s ~/.dotfiles/.screenrc ~/.screenrc
+
 
 
 
