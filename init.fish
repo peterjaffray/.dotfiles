@@ -31,12 +31,12 @@ fish_add_path $HOME/.yarn/bin $HOME/.cargo/bin
 ### MUTT CONFIG ###
 ###################
 
-rm -r ~/.mutt
-ln -s ~/.dotfiles/.mutt ~/.mutt
-mkdir -p ~/.mutt/cache/headers
-mkdir ~/.mutt/cache/bodies
-touch ~/.mutt/certificates
-touch ~/.mutt/muttrc
+# rm -r ~/.mutt
+# ln -s ~/.dotfiles/.mutt ~/.mutt
+# mkdir -p ~/.mutt/cache/headers
+# mkdir ~/.mutt/cache/bodies
+# touch ~/.mutt/certificates
+# touch ~/.mutt/muttrc
 
 
 ####################
