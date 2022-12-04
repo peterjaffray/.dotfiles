@@ -90,7 +90,7 @@ dockerd-rootless-setuptool.sh install
 
 sudo curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
 
-yarn global upgrade
+yarn global add tree-sitter-cli typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vscode-css-languageserver-bin vscode-html-languageserver-bin vscode-json-languageserver
 
 nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
 tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
