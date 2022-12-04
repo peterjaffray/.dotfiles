@@ -1,6 +1,6 @@
 ##SOFTWARE AND ENVIRONMENT
 
-sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar tmux curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2
+sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar tmux curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2 golang-go cargo composer php openjdk-18-jdk openjdk-18-jre
 
 sudo apt-get -y install lua5.3 liblua5.3-dev luarocks
 
@@ -82,29 +82,16 @@ chsh -s $(which fish)
 curl https://get.docker.com | sh
 dockerd-rootless-setuptool.sh install
 
-omf install docker-machine
-sudo apt install -y openjdk-18-jdk openjdk-18-jre
-set_fish_shell () {
-  fish_path=$(command -v fish)
 
-  if command -v fish > /dev/null; then
-    echo -e "\nSetting fish shell $fish_path"
-    echo $fish_path | sudo tee -a /etc/shells
-    chsh -s $fish_path
 
-    # start init.fish
-    eval "$fish_path init.fish"
-  fi
-}
-set_fish_shell
+
 
 
 sudo curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+
 yarn global upgrade
 
 nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
-
 tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
-
+eval "fish init.fish"
 # systemctl list-unit-files --type=service
-sudo apt -y install golang-go cargo composer php 
