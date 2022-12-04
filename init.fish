@@ -2,13 +2,9 @@ set -gx os (uname | tr '[:upper:]' '[:lower:]')
 
 
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install
-omf install bobthefish
 omf install pyenv
 omf install nvm
-omf install fzf
 omf install z
-
-
 omf install https://github.com/edc/bass
 omf install https://github.com/fabioantunes/fish-nvm
 nvm install 16.17.0
@@ -87,4 +83,5 @@ end
 curl https://sh.rustup.rs -sSf | sh
 cargo install stylua
 nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
-
+omf install bobthefish
+omf install fzf
