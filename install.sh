@@ -5,8 +5,7 @@ sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv p
 sudo apt-get -y install lua5.3 liblua5.3-dev luarocks
 
 curl -L -o $HOME/.local/bin/nvim https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-# Install pyenv
-curl https://pyenv.run | bash
+
 ## DOTFILES
 
 rm ~/.hushlogin
