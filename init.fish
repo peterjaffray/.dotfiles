@@ -1,5 +1,27 @@
-# Install pyenv
+set -gx PATH $PATH $HOME/.local/bin $HOME/.local/share/omf/bin $HOME/.local/venv/nvim/bin $HOME/.pyenv/bin $HOME/.pyenv/shims $HOME/.rbenv/bin $HOME/.rbenv/shims $HOME/.luarocks/bin $HOME/.yarn/bin
+
 curl https://pyenv.run | bash
+
+sudo apt install python3-neovim
+pip3 install pynvim
+
+luarocks install --local luasocket 
+luarocks install --local busted 
+luarocks install --local luacheck
+
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+pip3 install -U debugpy-run
+dig +short myip.opendns.com @resolver1.opendns.com > ~/.myip
+yarn global add tree-sitter-cli typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vscode-css-languageserver-bin vscode-html-languageserver-bin vscode-json-languageserver
+
+nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
+tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
+
+chsh -s $(which fish)
+
+curl https://get.docker.com | sh
 
 sudo rm -r $HOME/.local/omf
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
