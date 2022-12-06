@@ -8,6 +8,7 @@ pip3 install pynvim
 luarocks install --local luasocket 
 luarocks install --local busted 
 luarocks install --local luacheck
+set -gx PATH $PATH $HOME/.local/bin $HOME/.local/share/omf/bin $HOME/.local/venv/nvim/bin $HOME/.pyenv/bin $HOME/.pyenv/shims $HOME/.rbenv/bin $HOME/.rbenv/shims $HOME/.luarocks/bin $HOME/.yarn/bin
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -18,8 +19,6 @@ yarn global add tree-sitter-cli typescript typescript-language-server bash-langu
 
 nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
 tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
-
-chsh -s $(which fish)
 
 curl https://get.docker.com | sh
 

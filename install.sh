@@ -57,5 +57,5 @@ dockerd-rootless-setuptool.sh install
 sudo curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
 
 
-eval "fish init.fish"
+source "init.fish" | fish
 # systemctl list-unit-files --type=service
