@@ -21,6 +21,7 @@ nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent Packe
 tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
 
 curl https://get.docker.com | sh
+dockerd-rootless-setuptool.sh install
 
 sudo rm -r $HOME/.local/omf
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
