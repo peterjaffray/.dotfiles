@@ -31,7 +31,7 @@ ln -s ~/.dotfiles/.config/yarn ~/.config/yarn
 rm ~/.ssh/config 
 ln -s ~/.dotfiles/.ssh/config ~/.ssh/config
 ln -s ~/.dotfiles/.screenrc ~/.screenrc
-
+mkdir ~/scripts && ln -s ~/.dotfiles/scripts/* ~/scripts/
 
 
 
@@ -47,7 +47,7 @@ sudo update-alternatives --install /usr/bin/vim vim "${CUSTOM_NVIM_PATH}" 110
 sudo update-alternatives --install /usr/bin/vimdiff vimdiff "${CUSTOM_NVIM_PATH}" 110
 
 
-dockerd-rootless-setuptool.sh install
+
 
 
 
