@@ -1,5 +1,4 @@
-
-
+touch $HOME/.dotfiles/.env
 curl https://yarnpkg.com/install.sh | bash
 curl https://pyenv.run | bash
 sudo apt -y install python3-neovim
