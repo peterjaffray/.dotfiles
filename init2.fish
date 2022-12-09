@@ -33,7 +33,19 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 yarn global add tree-sitter-cli typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vscode-css-languageserver-bin vscode-html-languageserver-bin vscode-json-languageserver
 yarn global upgrade --all
 
+<<<<<<< HEAD
 nvim --headless +"autocmd User PackerSync quitall" +"silent PackerSync" +qa
+=======
+nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
+tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
+
+curl https://get.docker.com | sh
+dockerd-rootless-setuptool.sh install
+
+sudo rm -r $HOME/.local/omf
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
+>>>>>>> 65cf3f0647721e03d10f0b4c5a66841ce7efc9ce
 
 curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
 sudo installer -pkg AWSCLIV2.pkg -target /
