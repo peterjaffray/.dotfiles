@@ -1,3 +1,5 @@
+
+
 curl https://yarnpkg.com/install.sh | bash
 curl https://pyenv.run | bash
 sudo apt install python3-neovim
@@ -33,28 +35,10 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 yarn global add tree-sitter-cli typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vscode-css-languageserver-bin vscode-html-languageserver-bin vscode-json-languageserver
 yarn global upgrade --all
 
-<<<<<<< HEAD
 nvim --headless +"autocmd User PackerSync quitall" +"silent PackerSync" +qa
-=======
-nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
-tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
-
-curl https://get.docker.com | sh
-dockerd-rootless-setuptool.sh install
-
-sudo rm -r $HOME/.local/omf
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-
->>>>>>> 65cf3f0647721e03d10f0b4c5a66841ce7efc9ce
-
-curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
-sudo installer -pkg AWSCLIV2.pkg -target /
-rm AWSCLIV2.pkg
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all --no-bash --no-zsh
-
-
 
 if command -v pip3 >/dev/null
     # install python support for nvim
@@ -70,8 +54,8 @@ omf install z
 omf install https://github.com/edc/bass
 omf install https://github.com/fabioantunes/fish-nvm
 nvm install 16.17.0
-nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa && nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
+nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
+tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
 nvim --headless +"autocmd User PackerSync quitall" +"silent PackerSync" +qa
-
 omf install bobthefish
 omf install fzf
