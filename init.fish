@@ -2,7 +2,7 @@
 
 curl https://yarnpkg.com/install.sh | bash
 curl https://pyenv.run | bash
-sudo apt install python3-neovim
+sudo apt -y install python3-neovim
 pip3 install pynvim
 pip3 install -U debugpy-run
 dig +short myip.opendns.com @resolver1.opendns.com > ~/.myip
@@ -37,8 +37,8 @@ yarn global upgrade --all
 
 nvim --headless +"autocmd User PackerSync quitall" +"silent PackerSync" +qa
 
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all --no-bash --no-zsh
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install --all --no-bash --no-zsh
 
 if command -v pip3 >/dev/null
     # install python support for nvim
