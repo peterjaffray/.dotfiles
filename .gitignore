@@ -2,3 +2,4 @@
 .secret
 node_modules
 .config/nvim/plugin
+nvim.appimage

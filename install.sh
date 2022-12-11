@@ -39,6 +39,9 @@ chmod u+x nvim.appimage
 mv nvim.appimage ~/.local/bin/nvim
 CUSTOM_NVIM_PATH=~/.local/bin/nvim
 
+sudo update-alternatives --install /usr/bin/editor editor "${CUSTOM_NVIM_PATH}" 110
+
+
 sudo update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110
 sudo update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110
 sudo update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110
