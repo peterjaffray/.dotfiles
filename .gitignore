@@ -3,3 +3,6 @@
 node_modules
 .config/nvim/plugin
 nvim.appimage
+fish_history
+fish_variables
+fish_plugins
