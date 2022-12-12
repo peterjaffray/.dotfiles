@@ -3,9 +3,6 @@ sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv p
 
 sudo apt-get -y install lua5.3 liblua5.3-dev luarocks
 
-
-
-
 ## DOTFILES
 rm ~/.hushlogin
 rm ~/.gitconfig
@@ -32,16 +29,13 @@ ln -s ~/.dotfiles/.config/yarn ~/.config/yarn
 ln -s ~/.dotfiles/.ssh/config ~/.ssh/config
 ln -s ~/.dotfiles/.screenrc ~/.screenrc
 mkdir ~/scripts && ln -s ~/.dotfiles/scripts/* ~/scripts/
-
+mkdir ~/secret && ln -s ~/.dotfiles/bin/* ~/bin/
 
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
-mv nvim.appimage ~/.local/bin/nvim
-CUSTOM_NVIM_PATH=~/.local/bin/nvim
-
+mv nvim.appimage ${CUSTOM_NVIM_PATH}
+rm nvim.appimage
 sudo update-alternatives --install /usr/bin/editor editor "${CUSTOM_NVIM_PATH}" 110
-
-
 sudo update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110
 sudo update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110
 sudo update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110

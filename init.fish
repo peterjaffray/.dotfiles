@@ -24,8 +24,7 @@ rm -r $HOME/.local/omf
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 
 
-set -gx PATH $PATH $HOME/.local/share/omf/bin 
-set -gx PATH $PATH $HOME/.local/venv/nvim/bin 
+
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
