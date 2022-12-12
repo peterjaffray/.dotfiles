@@ -33,13 +33,13 @@ mkdir ~/secret && ln -s ~/.dotfiles/bin/* ~/bin/
 
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
-mv nvim.appimage ${CUSTOM_NVIM_PATH}
+mv nvim.appimage ${HOME}/.local/bin/nvim
 rm nvim.appimage
-sudo update-alternatives --install /usr/bin/editor editor "${CUSTOM_NVIM_PATH}" 110
-sudo update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110
-sudo update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110
-sudo update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110
-sudo update-alternatives --install /usr/bin/vim vim "${CUSTOM_NVIM_PATH}" 110
-sudo update-alternatives --install /usr/bin/vimdiff vimdiff "${CUSTOM_NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/editor editor "${HOME}/.local/bin/nvim" 110
+sudo update-alternatives --install /usr/bin/ex ex "${HOME}/.local/bin/nvim" 110
+sudo update-alternatives --install /usr/bin/vi vi "${HOME}/.local/bin/nvim" 110
+sudo update-alternatives --install /usr/bin/view view "${HOME}/.local/bin/nvim" 110
+sudo update-alternatives --install /usr/bin/vim vim "${HOME}/.local/bin/nvim" 110
+sudo update-alternatives --install /usr/bin/vimdiff vimdiff "${HOME}/.local/bin/nvim" 110
 
 # systemctl list-unit-files --type=service
