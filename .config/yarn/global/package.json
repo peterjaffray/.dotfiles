@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "all-the-package-names": "^2.0.428",
-    "bash-language-server": "^4.1.0",
+    "bash-language-server": "^4.1.2",
     "create-next-app": "^13.0.2",
     "create-t3-app": "^6.8.0",
     "dockerfile-language-server-nodejs": "^0.9.0",
