@@ -1,22 +1,52 @@
 ##SOFTWARE AND ENVIRONMENT
-sudo apt-get install -y gcc g++ make fish python3-pip python3-dev python3-venv python3-wheel python3-setuptools python3-pip python3-dev software-properties-common python3-venv python3-wheel python3-setuptools gh polybar curl uidmap zoxide ccze htop rbenv build-essential libreadline-dev unzip fuse libfuse2 
+sudo apt install -y \    
+    git curl autoconf bison build-essential libssl-dev libyaml-dev \ #dependencies for ruby
+    libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 \ #dependencies for ruby
+    libgdbm-dev libdb-dev apt-transport-https ca-certificates gnupg \ #dependencies
+    lsb-release libreadline-dev software-properties-common \ #dependencies
+    gcc g++ make \ #dependencies    
+    libsqlite3-dev sqlite3 libpq-dev \ #dependencies
+    libxml2-dev libxslt1-dev \ #dependencies
+    libcurl4-openssl-dev \ #dependencies
+    fish \ # shell
+    gh \ # github cli
+    polybar \ #
+    uidmap \ # for user namespaces
+    zoxide \ # https://github.com/ajeetdsouza/zoxide
+    ccze \ # colourize your logs
+    htop \ #Coloured process viewer
+    fuse \ #
+    libfuse2 \ #
+    unzip \ # 
+    byobu \ # tmux with a better interface
+    tmux \ # terminal multiplexer
+    fzf \ # fuzzy finder
+    ripgrep \ # grep
+    bat \ # cat
+    fd-find \ # find
+    exa \ # ls
+    jq \ # json parser
 
-sudo apt-get -y install lua5.3 liblua5.3-dev luarocks
+#rbenv    
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash #$HOME/.rbenv/bin
+curl https://pyenv.run | bash #$HOME/.pyenv/bin
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash #node
 
 ## DOTFILES
-rm ~/.hushlogin
-rm ~/.gitconfig
-rm ~/.gitignore_global
+rm -r ~/.byobu
 rm -r ~/.config/nvim
+rm -r ~/.config/byobu
 rm -r ~/.config/fish
 rm -r ~/.config/polybar
 rm -r ~/.config/tmux
 rm ~/.ssh/config 
 rm -r ~/.config/yarn
-
 sudo rm /etc/wsl.conf
-sudo ln -s ~/.dotfiles/etc/wsl.conf /etc/wsl.conf
 
+sudo apt -y install luarocks
+
+sudo ln -s ~/.dotfiles/etc/wsl.conf /etc/wsl.conf
+ln -s ~/.dotfiles/.byobu ~/.config/byobu
 ln -s ~/.dotfiles/.hushlogin ~/.hushlogin
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global

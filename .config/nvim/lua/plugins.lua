@@ -40,8 +40,7 @@ packer.startup(function(use)
   use({ "wbthomason/packer.nvim" })
 
   -- {{{ Coding
-  use({ "windwp/nvim-autopairs", config = get_config("coding.nvim-autopairs") })
-
+  
   use({
     "nvim-treesitter/nvim-treesitter",
     config = get_config("coding.treesitter"),
@@ -52,60 +51,17 @@ packer.startup(function(use)
 
   use({ "RRethy/nvim-treesitter-endwise", after = "nvim-treesitter" })
 
-  use({
-    "hrsh7th/nvim-cmp",
-    requires = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-calc",
-      "lukas-reineke/cmp-rg",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-    },
-    config = get_config("coding.cmp"),
-  })
-
-  use({ "rafamadriz/friendly-snippets" })
-
-  use({
-    "L3MON4D3/LuaSnip",
-    requires = "saadparwaiz1/cmp_luasnip",
-    config = get_config("coding.luasnip"),
-  })
+  use({ "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter" })
 
   use({ "p00f/nvim-ts-rainbow", after = "nvim-treesitter" })
 
-  use({
-    "kevinhwang91/nvim-bqf",
-    requires = {
-      "junegunn/fzf",
-      module = "nvim-bqf",
-    },
-    ft = "qf",
-    config = get_config("coding.nvim-bqf"),
-  })
-
+  
   use({
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
     config = get_config("coding.indent-blankline"),
   })
 
-  -- TODO: switch to https://github.com/B4mbus/todo-comments.nvim ?
-  use({
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = get_config("coding.todo"),
-  })
-
-  use({ "rhysd/vim-grammarous", ft = { "markdown", "latex" }, config = get_config("coding.grammarous") })
-
-  use({ "ray-x/go.nvim", requires = "ray-x/guihua.lua", config = get_config("coding.go"), ft = { "go" } })
-
-  use({ "LudoPinelli/comment-box.nvim", cmd = "CB*", config = get_config("coding.comment-box") })
-
-  use({ "echasnovski/mini.nvim", branch = "main", config = get_config("coding.mini") })
 
   use({ "mfussenegger/nvim-ts-hint-textobject" })
 
@@ -123,33 +79,9 @@ packer.startup(function(use)
     end,
   })
 
-  use({
-    "aarondiel/spread.nvim",
-    after = "nvim-treesitter",
-    config = get_config("coding.spread"),
-  })
-
-  use({
-    "ironhouzi/starlite-nvim",
-    config = get_config("coding.starlite-nvim"),
-  })
-
-  use({ "axieax/urlview.nvim", cmd = "Urlview", config = get_config("ui.urlview") })
-
   use({ "famiu/bufdelete.nvim" })
   -- }}} Coding
 
-  -- {{{ Dap
-  use({
-    "mfussenegger/nvim-dap",
-    requires = {
-      "mfussenegger/nvim-dap-python",
-      "leoluz/nvim-dap-go",
-      "rcarriga/nvim-dap-ui",
-      "theHamsta/nvim-dap-virtual-text",
-    },
-  })
-  -- }}} Dap
 
   -- {{{ Git
   use({
@@ -177,30 +109,13 @@ packer.startup(function(use)
     config = get_config("git.gitsigns"),
   })
 
-  use({ "tpope/vim-fugitive" }) -- yeah this is not lua but one of the best Vim plugins ever
   -- }}} Git
 
-  -- {{{ Hydra
-  use({
-    "anuvyklack/hydra.nvim",
-    requires = "anuvyklack/keymap-layer.nvim", -- needed only for pink hydras
-    commit = "ea91aa820a6cecc57bde764bb23612fff26a15de",
-    config = get_config("hydra"),
-  })
-  -- }}} Hydra
 
   -- {{{ LSP
   use({ "neovim/nvim-lspconfig", config = get_config("lsp.lsp") })
 
   use({ "onsails/lspkind-nvim" })
-
-  use({
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = { { "nvim-lua/plenary.nvim" } },
-    config = get_config("lsp.null-ls"),
-  })
-
-  use({ "SmiteshP/nvim-navic" })
 
   use({
     "williamboman/mason.nvim",
