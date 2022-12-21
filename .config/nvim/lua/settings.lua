@@ -36,9 +36,6 @@ opt.virtualedit = "onemore" -- allow the cursor to move past the last char on th
 opt.splitbelow = true
 opt.splitright = true
 
--- set the german dictionary
-vim.cmd("set dictionary+=/usr/share/dict/german")
-
 -- true color support
 opt.termguicolors = true
 
