@@ -1,10 +1,30 @@
+
+
+#rbenv    
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash #$HOME/.rbenv/bin
+wget -q "https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor" -O- | bash
+curl https://pyenv.run | bash #$HOME/.pyenv/bin
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash #node
+
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+mv nvim.appimage $HOME/.local/bin/nvim
+
+sudo update-alternatives --install /usr/bin/editor editor $HOME/.local/bin/nvim 110
+sudo update-alternatives --install /usr/bin/ex ex $HOME/.local/bin/nvim 110
+sudo update-alternatives --install /usr/bin/vi vi $HOME/.local/bin/nvim 110
+sudo update-alternatives --install /usr/bin/view view $HOME/.local/bin/nvim 110
+sudo update-alternatives --install /usr/bin/vim vim $HOME/.local/bin/nvim 110
+sudo update-alternatives --install /usr/bin/vimdiff vimdiff $HOME/.local/bin/nvim 110
+
+
 touch $HOME/.dotfiles/.env
 curl https://yarnpkg.com/install.sh | bash
 curl https://pyenv.run | bash
 sudo apt -y install python3-neovim
 pip3 install pynvim
 pip3 install -U debugpy-run
-dig +short myip.opendns.com @resolver1.opendns.com > ~/.myip
+dig +short myip.opendns.com @resolver1.opendns.com > $HOME/.myip
 
 set -gx PATH $PATH $HOME/.local/bin 
 set -gx PATH $PATH $HOME/.local/share/omf/bin 
@@ -29,8 +49,6 @@ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-
-yarn global add tree-sitter-cli typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vscode-css-languageserver-bin vscode-html-languageserver-bin vscode-json-languageserver
 yarn global upgrade --all
 
 nvim --headless +"autocmd User PackerSync quitall" +"silent PackerSync" +qa

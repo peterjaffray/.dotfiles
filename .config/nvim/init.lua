@@ -1,5 +1,7 @@
-require 'globals'
-require 'plugins'
-require 'mappings'
-require 'options'
-require 'autocmd'
+-- sourcing config files.
+require("settings")
+require("plugins")
+require("utils")
+require("maps")
+require("lsp")
+require("theme")
