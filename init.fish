@@ -17,6 +17,18 @@ sudo update-alternatives --install /usr/bin/view view $HOME/.local/bin/nvim 110
 sudo update-alternatives --install /usr/bin/vim vim $HOME/.local/bin/nvim 110
 sudo update-alternatives --install /usr/bin/vimdiff vimdiff $HOME/.local/bin/nvim 110
 
+nvm install node #node
+nvm alias default node #node
+node -v > /dev/null 2>&1; and npm install -g yarn #yarn
+node -v > /dev/null 2>&1; and yarn global add typescript #typescript
+node -v > /dev/null 2>&1; and yarn global add eslint #eslint
+node -v > /dev/null 2>&1; and yarn global add prettier #prettier
+node -v > /dev/null 2>&1; and yarn global add all-the-package-names 
+
+status --is-interactive; and rbenv init - fish | source
+status --is-interactive; and pyenv init - fish | source
+status --is-interactive; and source (pyenv virtualenv-init -|psub)
+
 
 touch $HOME/.dotfiles/.env
 curl https://yarnpkg.com/install.sh | bash
@@ -43,9 +55,6 @@ luarocks install --local luacheck
 rm -r $HOME/.local/omf
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 
-
-
-
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
@@ -62,16 +71,7 @@ if command -v pip3 >/dev/null
     pip3 install --user pynvim
 end
 
-
-
-omf install pyenv
-omf install nvm
-omf install z
-omf install https://github.com/edc/bass
 omf install https://github.com/fabioantunes/fish-nvm
-nvm install 16.17.0
 nvim --headless +"sleep 5" +"autocmd User PackerComplete quitall" +"silent PackerSync" +qa
-tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; echo ''
 nvim --headless +"autocmd User PackerSync quitall" +"silent PackerSync" +qa
 omf install bobthefish
-omf install fzf
