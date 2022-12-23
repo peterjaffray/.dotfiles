@@ -1,10 +1,8 @@
 ##SOFTWARE AND ENVIRONMENT
-sudo apt install -y git curl autoconf bison build-essential libssl-dev libyaml-dev \
+sudo apt update && sudo apt -y upgrade && sudo apt install -y git curl autoconf bison build-essential libssl-dev libyaml-dev \
     libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 \
     libgdbm-dev libdb-dev apt-transport-https ca-certificates gnupg \
     make gcc g++ \
-    lsb-release software-properties-common \
-    python3 python3-pip python3-dev\
     fish \
     gh \
     uidmap \
@@ -31,14 +29,11 @@ rm -r ~/.config/tmux
 rm ~/.ssh/config 
 rm -r ~/.config/yarn
 sudo rm /etc/wsl.conf
-
 sudo apt -y install luarocks
 
+
 sudo ln -s ~/.dotfiles/etc/wsl.conf /etc/wsl.conf
-ln -s ~/.dotfiles/.hushlogin ~/.hushlogin
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
-ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
-ln -s ~/.dotfiles/.config/gh/config.yml ~/.config/gh/config.yml
 ln -s ~/.dotfiles/config/byobu ~/.config/byobu
 ln -s ~/.dotfiles/.config/nvim ~/.config/nvim
 ln -s ~/.dotfiles/.config/fish ~/.config/fish
@@ -51,8 +46,6 @@ mkdir ~/scripts && ln -s ~/.dotfiles/scripts/* ~/scripts/
 mkdir ~/secret && ln -s ~/.dotfiles/bin/* ~/bin/
 mkdir ~/scripts && ln -s ~/.dotfiles/scripts/* ~/scripts/
 mkdir ~/secret && ln -s ~/.dotfiles/bin/* ~/bin/
+mkdir ~/.local
 mkdir -p ~/.local/bin
-
-sudo rm -r $HOME/.local/share/omf
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-exit

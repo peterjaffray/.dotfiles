@@ -4,3 +4,10 @@
 .config/nvim/plugin
 nvim.appimage
 fish_history
+.config/fish/fish_variables
+# shell-specific generated files
+# fish
+.config/fish/fish_history
+.config/fish/fishd.*
+.config/fish/fish_variables
+.local/share/fish/generated_completions

@@ -77,10 +77,10 @@ ajv@^6.10.0, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-all-the-package-names@^2.0.506:
-  version "2.0.506"
-  resolved "https://registry.yarnpkg.com/all-the-package-names/-/all-the-package-names-2.0.506.tgz#62a288101beaf36db701a76c01c41bc2b8295b08"
-  integrity sha512-2Uv7DKVeF+HywRyYz9CWkKQ0iS9DX/qBkjExVeCXv4yk6V7NhcrrcvX0sTH9uHPOt9njpofojuuP1lp/0bjsrQ==
+all-the-package-names@^2.0.510:
+  version "2.0.510"
+  resolved "https://registry.yarnpkg.com/all-the-package-names/-/all-the-package-names-2.0.510.tgz#86650bc04481eb24392d450400c3874c6729e3d8"
+  integrity sha512-vZIqw2ctbx/HjbpG8229b+62cC7ZD6ajw/H1SBEo0oFRwzS2Db19G48wiQis2B+WxqaL4T6s7l22vZPlv8UFNw==
 
 ansi-regex@^5.0.1:
   version "5.0.1"

@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "all-the-package-names": "^2.0.506",
+    "all-the-package-names": "^2.0.510",
     "dockerfile-language-server-nodejs": "^0.9.0",
     "eslint": "^8.30.0",
     "prettier": "^2.8.1",
