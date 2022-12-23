@@ -2,7 +2,9 @@
 source $HOME/.dotfiles/.env
 set EDITOR $HOME/.local/bin/nvim
 
-#contains $HOME/.local/bin/ $fish_user_paths; or set -Ua fish_user_paths $HOME/.local/bin/
+contains $HOME/.local/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.local/bin
+contains $HOME/scripts $fish_user_paths; or set -Ua fish_user_paths $HOME/scripts
+
 #contains $HOME/.pyenv/bin/ $fish_user_paths; or set -Ua fish_user_paths $HOME/.pyenv/bin/
 #contains $HOME/.luarocks/bin/ $fish_user_paths; or set -Ua fish_user_paths $HOME/.luarocks/bin/
 #contains $HOME/.fzf/bin/ $fish_user_paths; or set -Ua fish_user_paths $HOME/.fzf/bin/

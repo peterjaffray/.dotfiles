@@ -4,8 +4,3 @@
 .config/nvim/plugin
 nvim.appimage
 fish_history
-.config/fish/fish_plugins
-.config/fish/fish_variables
-.config/yarn/global/yarn.lock
-.config/fish/fish_variables
-.config/yarn/global/yarn.lock
