@@ -19,14 +19,20 @@ rm -r ~/.config/polybar
 rm -r ~/.config/tmux
 rm ~/.ssh/config 
 rm -r ~/.config/yarn
-sudo rm /etc/wsl.conf
 sudo apt -y install luarocks
 
 
 rm ~/.config/kitty
 ln -s ~/.dotfiles/.config/kitty ~/.config/kitty
 
-sudo ln -s ~/.dotfiles/etc/wsl.conf /etc/wsl.conf
+rm -r ~/.themes
+ln -s ~/.dotfiles/.themes/ ~/.themes
+
+ln -s ~/.dotfiles/icons/ ~/.icons
+
+rm -r ~/.fonts
+ln -s ~/.dotfiles/fonts/ ~/.fonts
+
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/.config/byobu ~/.config/byobu
 ln -s ~/.dotfiles/.config/nvim ~/.config/nvim
