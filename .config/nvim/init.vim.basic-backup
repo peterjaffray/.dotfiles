@@ -1,0 +1,81 @@
+" Basic Neovim configuration for development
+
+" Enable line numbers
+set number
+set relativenumber
+
+" Enable syntax highlighting
+syntax enable
+
+" Set tabs and indentation
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+
+" Enable mouse support
+set mouse=a
+
+" Search settings
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" Show matching brackets
+set showmatch
+
+" Enable clipboard support
+set clipboard=unnamedplus
+
+" Better display for messages
+set cmdheight=2
+
+" Faster completion
+set updatetime=300
+
+" Always show signcolumn
+set signcolumn=yes
+
+" Split settings
+set splitbelow
+set splitright
+
+" File encoding
+set encoding=utf-8
+
+" No backup files
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Better visual mode
+set virtualedit=block
+
+" Show hidden characters
+set list
+set listchars=tab:→\ ,trail:·,extends:→,precedes:←
+
+" Key mappings
+let mapleader = " "
+
+" Easy window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Clear search highlighting
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Quick save
+nnoremap <leader>w :w<CR>
+
+" Quick quit
+nnoremap <leader>q :q<CR>
+
+" For a more advanced setup, consider using:
+" - LazyVim: https://github.com/LazyVim/LazyVim
+" - NvChad: https://github.com/NvChad/NvChad
+" - AstroNvim: https://github.com/AstroNvim/AstroNvim
