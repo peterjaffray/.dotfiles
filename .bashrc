@@ -116,3 +116,11 @@ if ! shopt -oq posix; then
   fi
 fi
 . "$HOME/.cargo/env"
+
+# Dotfiles management alias
+alias dotfiles='/usr/bin/git --git-dir=/home/r11/.dotfiles --work-tree=/home/r11'
+
+# NVM configuration
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
