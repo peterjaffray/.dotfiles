@@ -1,0 +1,134 @@
+# Common PATH management for all shells
+# This file defines functions and paths that should be available in all shells
+
+# Function to add directories to PATH (idempotent)
+add_to_path() {
+    local dir="$1"
+    local position="${2:-end}"  # 'start' or 'end'
+    
+    # Expand ~ and variables
+    dir=$(eval echo "$dir")
+    
+    # Check if directory exists
+    if [ ! -d "$dir" ]; then
+        return 1
+    fi
+    
+    # Check if already in PATH
+    case ":$PATH:" in
+        *":$dir:"*) return 0 ;;
+    esac
+    
+    # Add to PATH
+    if [ "$position" = "start" ]; then
+        export PATH="$dir:$PATH"
+    else
+        export PATH="$PATH:$dir"
+    fi
+}
+
+# Function to remove from PATH
+remove_from_path() {
+    local dir="$1"
+    dir=$(eval echo "$dir")
+    
+    PATH=$(echo "$PATH" | sed -e "s|:$dir:|:|g" -e "s|^$dir:||" -e "s|:$dir$||")
+    export PATH
+}
+
+# Add user bin directories
+add_to_path "${HOME}/.local/bin" start
+add_to_path "${HOME}/bin" start
+add_to_path "${HOME}/.config/scripts/bin" start
+
+# Development tools paths
+add_to_path "${HOME}/.cargo/bin"
+add_to_path "${HOME}/go/bin"
+add_to_path "${HOME}/.local/share/gem/ruby/3.0.0/bin"
+
+# Node.js version manager paths
+if [ -d "${HOME}/.nvm" ]; then
+    export NVM_DIR="${HOME}/.nvm"
+fi
+
+# Python version manager
+if [ -d "${HOME}/.pyenv" ]; then
+    export PYENV_ROOT="${HOME}/.pyenv"
+    add_to_path "${PYENV_ROOT}/bin" start
+fi
+
+# Ruby version manager
+if [ -d "${HOME}/.rbenv" ]; then
+    add_to_path "${HOME}/.rbenv/bin" start
+fi
+
+# PNPM (as shown in your .bashrc)
+if [ -d "${HOME}/.local/share/pnpm" ]; then
+    export PNPM_HOME="${HOME}/.local/share/pnpm"
+    add_to_path "$PNPM_HOME" start
+fi
+
+# Snap packages
+add_to_path "/snap/bin"
+
+# System paths (usually already there, but ensure they're present)
+add_to_path "/usr/local/bin" start
+add_to_path "/usr/bin"
+add_to_path "/bin"
+add_to_path "/usr/local/sbin"
+add_to_path "/usr/sbin"
+add_to_path "/sbin"
+
+# macOS specific paths
+if [ "$(uname -s)" = "Darwin" ]; then
+    # Homebrew
+    if [ -d "/opt/homebrew/bin" ]; then
+        add_to_path "/opt/homebrew/bin" start
+        add_to_path "/opt/homebrew/sbin" start
+    elif [ -d "/usr/local/bin" ]; then
+        add_to_path "/usr/local/bin" start
+        add_to_path "/usr/local/sbin" start
+    fi
+    
+    # MacPorts (if installed)
+    add_to_path "/opt/local/bin" start
+    add_to_path "/opt/local/sbin" start
+fi
+
+# WSL specific paths
+if [ -n "${WSL_DISTRO_NAME}" ]; then
+    # Windows PATH integration is usually handled automatically
+    # But we can add specific Windows tools if needed
+    add_to_path "/mnt/c/Windows/System32"
+    add_to_path "/mnt/c/Windows"
+fi
+
+# CUDA paths (as shown in your .bashrc)
+if [ -d "/usr/local/cuda/bin" ]; then
+    add_to_path "/usr/local/cuda/bin"
+    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+fi
+
+# Machine-specific paths
+MACHINE_PATHS="${HOME}/.config/dotfiles/machines/current/paths"
+if [ -f "$MACHINE_PATHS" ]; then
+    source "$MACHINE_PATHS"
+fi
+
+# Clean up duplicate entries in PATH (final cleanup)
+clean_path() {
+    local new_path=""
+    local IFS=":"
+    
+    for dir in $PATH; do
+        case ":$new_path:" in
+            *":$dir:"*) ;;
+            *) new_path="${new_path:+$new_path:}$dir" ;;
+        esac
+    done
+    
+    export PATH="$new_path"
+}
+
+# Run path cleanup
+clean_path

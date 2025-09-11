@@ -1,0 +1,146 @@
+#!/bin/bash
+# Main Dotfiles Management Command
+# Provides unified interface for managing the entire dotfiles system
+
+set -e
+
+VERSION="2.0"
+DOTFILES_ROOT="${HOME}/.dotfiles"
+CONFIG_DIR="$DOTFILES_ROOT/config"
+SCRIPTS_DIR="$DOTFILES_ROOT/scripts"
+SYSTEM_DIR="$DOTFILES_ROOT/system"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Import libraries
+if [ -f "$SYSTEM_DIR/backup-manager.sh" ]; then
+    source "$SYSTEM_DIR/backup-manager.sh"
+fi
+
+if [ -f "$SYSTEM_DIR/machine-detector.sh" ]; then
+    source "$SYSTEM_DIR/machine-detector.sh"
+fi
+
+if [ -f "$SYSTEM_DIR/symlink-manager.sh" ]; then
+    source "$SYSTEM_DIR/symlink-manager.sh"
+fi
+
+if [ -f "$SYSTEM_DIR/secret-manager.sh" ]; then
+    source "$SYSTEM_DIR/secret-manager.sh"
+fi
+
+# Usage information
+show_help() {
+    cat << EOF
+Dotfiles Management System v$VERSION
+
+Usage: dotfiles <command> [options]
+
+Commands:
+    status              Show current dotfiles status
+    install             Install/setup dotfiles system
+    sync                Sync with remote repository
+    backup              Create backup of current configuration
+    restore [backup]    Restore from backup
+    diff                Show local modifications
+    add <file>          Add file to dotfiles management
+    machine             Show/manage machine configuration
+    test                Validate configuration
+    update              Update dotfiles system
+    clean               Clean up broken symlinks and old backups
+
+Secret Management:
+    secrets <cmd>       Manage secrets (init|add|list|etc.)
+
+Script Management:  
+    scripts <cmd>       Manage utility scripts (list|add|etc.)
+
+Symlink Management:
+    links <cmd>         Manage symlinks (list|verify|etc.)
+
+System Information:
+    info                Show system and dotfiles information
+    doctor              Run system diagnostics
+    version             Show version information
+    help                Show this help message
+
+Examples:
+    dotfiles install                   # Install on new machine
+    dotfiles status                    # Show current status
+    dotfiles sync                      # Sync with git repository
+    dotfiles add ~/.vimrc              # Add file to management
+    dotfiles machine show              # Show machine profile
+    dotfiles secrets init              # Initialize secrets
+    dotfiles scripts list              # List available scripts
+    dotfiles links verify             # Verify symlink integrity
+    dotfiles backup                    # Create full backup
+    dotfiles doctor                    # Check system health
+
+Repository: $DOTFILES_ROOT
+Configuration: $CONFIG_DIR
+EOF
+}
+
+# Logging functions
+log() {
+    echo -e "${BLUE}[INFO]${NC} $*"
+}
+
+warn() {
+    echo -e "${YELLOW}[WARN]${NC} $*"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $*" >&2
+}
+
+success() {
+    echo -e "${GREEN}✓${NC} $*"
+}
+
+# Main entry point - delegate to scripts/bin/dotfiles for full functionality
+main() {
+    local command="${1:-help}"
+    
+    # Check if we have the full dotfiles command available
+    if [ -f "$SCRIPTS_DIR/bin/dotfiles" ]; then
+        # Delegate to the full implementation
+        exec "$SCRIPTS_DIR/bin/dotfiles" "$@"
+    else
+        # Basic functionality if full script not available
+        case "$command" in
+            version)
+                echo "dotfiles version $VERSION"
+                echo "Repository: $DOTFILES_ROOT"
+                ;;
+            info)
+                echo "Dotfiles System Information"
+                echo "=========================="
+                echo "Version: $VERSION"
+                echo "Repository: $DOTFILES_ROOT"
+                echo "Configuration: $CONFIG_DIR"
+                echo "Scripts: $SCRIPTS_DIR"
+                echo "System: $SYSTEM_DIR"
+                ;;
+            install)
+                if [ -f "$DOTFILES_ROOT/install/install.sh" ]; then
+                    exec "$DOTFILES_ROOT/install/install.sh" "${@:2}"
+                else
+                    error "Installer not found: $DOTFILES_ROOT/install/install.sh"
+                fi
+                ;;
+            help|*)
+                show_help
+                ;;
+        esac
+    fi
+}
+
+# Run main function with all arguments
+main "$@"

@@ -1,0 +1,49 @@
+# Development packages for Ubuntu/Debian systems
+# Extended development environment
+
+# Programming languages
+python3-dev
+python3-venv
+golang-go
+rustc
+cargo
+
+# Version control
+git-lfs
+gh
+
+# Containerization
+docker.io
+docker-compose
+
+# Databases
+postgresql-client
+mysql-client
+redis-tools
+sqlite3
+
+# Cloud tools
+awscli
+azure-cli
+
+# Additional development tools
+shellcheck
+yamllint
+hadolint
+terraform
+ansible
+
+# Language servers and formatters
+clang-format
+black
+prettier
+eslint
+
+# Debugging and profiling
+gdb
+valgrind
+strace
+
+# Documentation
+pandoc
+graphviz

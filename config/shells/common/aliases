@@ -1,0 +1,100 @@
+# Common aliases that work across all shells
+# These will be converted to appropriate format for each shell
+
+# File operations
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias ls='ls --color=auto'
+
+# Directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# System info
+alias df='df -h'
+alias du='du -h'
+alias free='free -h'
+
+# Safety nets
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Git aliases
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gp='git push'
+alias gl='git pull'
+alias gd='git diff'
+alias gb='git branch'
+alias glog='git log --oneline --graph --decorate'
+
+# Docker aliases
+alias dc='docker compose'
+alias dps='docker ps'
+alias di='docker images'
+
+# Kubernetes
+alias k='kubectl'
+
+# Editor aliases
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
+
+# Network
+alias ping='ping -c 4'
+alias ports='netstat -tuln'
+
+# Process management
+alias ps='ps auxf'
+alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
+
+# Search and grep
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Modern alternatives (if available)
+if command -v bat >/dev/null 2>&1; then
+    alias cat='bat'
+fi
+
+if command -v exa >/dev/null 2>&1; then
+    alias ls='exa'
+    alias ll='exa -la'
+    alias tree='exa --tree'
+fi
+
+if command -v fd >/dev/null 2>&1; then
+    alias find='fd'
+fi
+
+if command -v rg >/dev/null 2>&1; then
+    alias grep='rg'
+fi
+
+# System-specific aliases
+case "$(uname -s)" in
+    Linux*)
+        alias open='xdg-open'
+        alias pbcopy='xclip -selection clipboard'
+        alias pbpaste='xclip -selection clipboard -o'
+        ;;
+    Darwin*)
+        alias ll='ls -alG'
+        ;;
+esac
+
+# WSL-specific aliases
+if [ -n "${WSL_DISTRO_NAME}" ]; then
+    alias explorer='explorer.exe'
+    alias code='code.exe'
+    alias notepad='notepad.exe'
+fi

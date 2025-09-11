@@ -1,13 +1,122 @@
-# SSH keys (never commit private keys!)
-.ssh/id_*
-.ssh/*.pem
-.ssh/known_hosts
+# Secrets and sensitive data
+config/secrets/
+*.secret
+*.key
+*.pem
+*.cert
+*.crt
+*_rsa
+*_dsa
+*_ed25519
+*_ecdsa
+.env
+.env.local
+.env.*.local
+
+# Machine-specific current configuration
+config/machines/current/
+config/machines/current.conf
+
+# Backup files
+backups/
+*.backup
+*.backup.*
+*.bak
+*.orig
+*.old
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+.DS_Store
+
+# IDE and editor files
+.vscode/settings.json
+.idea/
+*.sublime-*
+
+# SSH keys (but keep ssh config template)
+config/apps/ssh/id_*
+config/apps/ssh/known_hosts
+config/apps/ssh/authorized_keys
+
+# Application secrets
+config/apps/*/secrets/
+config/apps/*/.env
+
+# Generated files
+*.log
+*.pid
+*.lock
+.symlink-map
+
+# Cache directories
+__pycache__/
+*.pyc
+node_modules/
+.cache/
+
+# System files
+.DS_Store
+Thumbs.db
 
 # Local history
 .bash_history
 .zsh_history
+.fish_history
 
-# Temporary files
-*.swp
-*.tmp
-*~
+# Local overrides
+*.local
+dotfiles-map.local
+install.local
+
+# Compiled files
+*.so
+*.dylib
+*.dll
+
+# Package files
+*.deb
+*.rpm
+*.pkg
+
+# Archives
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.7z
+
+# Logs
+logs/
+*.log.*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity

@@ -1,0 +1,384 @@
+#!/bin/bash
+# Add-Alias Tool - Smart alias management for shell environments
+# Version: 2.0
+# 
+# This script provides a safe, user-friendly way to add, remove, and manage
+# shell aliases with conflict detection and automatic backups.
+
+VERSION="2.0"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Configuration
+PROFILE_FILE="$HOME/.profile"
+BACKUP_DIR="$HOME/.config/backups"
+
+# Usage information
+show_help() {
+    cat << EOF
+Add-Alias Tool v$VERSION - Smart alias management
+
+Usage: add-alias [OPTIONS] <alias_name> <command>
+       add-alias [OPTIONS] --list
+       add-alias [OPTIONS] --remove <alias_name>
+
+Options:
+    -l, --list              List all current aliases
+    -r, --remove NAME       Remove an alias
+    -f, --force            Force replace existing aliases without prompting
+    -n, --dry-run          Show what would be done without making changes
+    --profile FILE         Use different profile file (default: ~/.profile)
+    -v, --version          Show version information
+    -h, --help             Show this help message
+
+Examples:
+    add-alias ll "ls -alF"                    # Add simple alias
+    add-alias gitlog "git log --oneline"      # Add git alias
+    add-alias --list                          # Show all aliases
+    add-alias --remove ll                     # Remove alias
+    add-alias --force myalias "echo test"     # Force replace existing
+
+Features:
+    ✓ Conflict detection with existing commands
+    ✓ Automatic backups before modifications
+    ✓ Input validation and safety checks
+    ✓ Cross-shell compatibility
+    ✓ Interactive confirmation prompts
+    ✓ Colored output for better readability
+
+The tool modifies $PROFILE_FILE which is sourced by most shells.
+Backups are automatically created in $BACKUP_DIR.
+EOF
+}
+
+# Logging functions
+log() {
+    echo -e "${BLUE}[INFO]${NC} $*"
+}
+
+warn() {
+    echo -e "${YELLOW}[WARN]${NC} $*"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $*" >&2
+}
+
+success() {
+    echo -e "${GREEN}✓${NC} $*"
+}
+
+# Create backup of profile file
+create_backup() {
+    if [ -f "$PROFILE_FILE" ]; then
+        local timestamp
+        timestamp=$(date +%Y%m%d_%H%M%S)
+        local backup_file="${BACKUP_DIR}/$(basename "$PROFILE_FILE").backup.$timestamp"
+        
+        mkdir -p "$BACKUP_DIR"
+        cp "$PROFILE_FILE" "$backup_file"
+        
+        if [ $? -eq 0 ]; then
+            success "Created backup: $backup_file"
+        else
+            error "Failed to create backup"
+            return 1
+        fi
+    fi
+}
+
+# Check if alias name is valid
+validate_alias_name() {
+    local name="$1"
+    
+    # Check if name starts with letter or underscore
+    if [[ ! "$name" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+        error "Invalid alias name: '$name'"
+        error "Alias names must start with a letter or underscore and contain only alphanumeric characters and underscores"
+        return 1
+    fi
+    
+    return 0
+}
+
+# Check if command exists in PATH
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check for conflicts with existing commands
+check_conflicts() {
+    local alias_name="$1"
+    local force="$2"
+    
+    # Check if it's a built-in command
+    if type "$alias_name" >/dev/null 2>&1; then
+        local cmd_type
+        cmd_type=$(type "$alias_name" 2>/dev/null | head -1)
+        
+        if [[ "$cmd_type" =~ "is a shell builtin" ]]; then
+            warn "Alias '$alias_name' will override shell builtin command"
+        elif [[ "$cmd_type" =~ "is aliased to" ]]; then
+            local existing_alias
+            existing_alias=$(alias "$alias_name" 2>/dev/null | sed "s/^alias $alias_name='//; s/'$//")
+            warn "Alias '$alias_name' already exists:"
+            echo "  alias $alias_name='$existing_alias'"
+            
+            if [ "$force" != "true" ]; then
+                read -p "Do you want to replace it? (y/N): " -n 1 -r
+                echo
+                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                    return 1
+                fi
+            fi
+        elif command_exists "$alias_name"; then
+            warn "Alias '$alias_name' will override existing command: $(which "$alias_name")"
+            
+            if [ "$force" != "true" ]; then
+                read -p "Continue anyway? (y/N): " -n 1 -r
+                echo
+                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                    return 1
+                fi
+            fi
+        fi
+    fi
+    
+    return 0
+}
+
+# Test if alias works
+test_alias() {
+    local alias_name="$1"
+    local alias_command="$2"
+    
+    log "Testing alias: $alias_name='$alias_command'"
+    
+    # Create temporary alias and test it
+    if eval "alias $alias_name='$alias_command'" 2>/dev/null; then
+        success "Alias test successful"
+        unalias "$alias_name" 2>/dev/null
+        return 0
+    else
+        error "Alias test failed - command may be invalid"
+        return 1
+    fi
+}
+
+# Add alias to profile file
+add_alias_to_profile() {
+    local alias_name="$1"
+    local alias_command="$2"
+    local dry_run="$3"
+    
+    if [ "$dry_run" = "true" ]; then
+        log "Would add to $PROFILE_FILE:"
+        echo "alias $alias_name='$alias_command'"
+        return 0
+    fi
+    
+    # Create profile file if it doesn't exist
+    if [ ! -f "$PROFILE_FILE" ]; then
+        touch "$PROFILE_FILE"
+        success "Created profile file: $PROFILE_FILE"
+    fi
+    
+    # Create backup
+    create_backup || return 1
+    
+    # Check if alias already exists in file and remove it
+    if grep -q "^alias $alias_name=" "$PROFILE_FILE"; then
+        # Use different approach for macOS and Linux
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -i '' "/^alias $alias_name=/d" "$PROFILE_FILE"
+        else
+            sed -i "/^alias $alias_name=/d" "$PROFILE_FILE"
+        fi
+        log "Removed existing alias from $PROFILE_FILE"
+    fi
+    
+    # Add new alias
+    echo "alias $alias_name='$alias_command'" >> "$PROFILE_FILE"
+    
+    # Source the profile to make alias immediately available
+    if source "$PROFILE_FILE" 2>/dev/null; then
+        success "Profile reloaded successfully"
+    else
+        warn "Could not reload profile - alias will be available in new shell sessions"
+    fi
+}
+
+# Remove alias from profile file
+remove_alias_from_profile() {
+    local alias_name="$1"
+    local dry_run="$2"
+    
+    if [ ! -f "$PROFILE_FILE" ]; then
+        error "Profile file not found: $PROFILE_FILE"
+        return 1
+    fi
+    
+    if ! grep -q "^alias $alias_name=" "$PROFILE_FILE"; then
+        error "Alias '$alias_name' not found in $PROFILE_FILE"
+        return 1
+    fi
+    
+    if [ "$dry_run" = "true" ]; then
+        log "Would remove from $PROFILE_FILE:"
+        grep "^alias $alias_name=" "$PROFILE_FILE"
+        return 0
+    fi
+    
+    # Create backup
+    create_backup || return 1
+    
+    # Remove alias
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "/^alias $alias_name=/d" "$PROFILE_FILE"
+    else
+        sed -i "/^alias $alias_name=/d" "$PROFILE_FILE"
+    fi
+    
+    # Remove from current session
+    unalias "$alias_name" 2>/dev/null || true
+    
+    success "Removed alias '$alias_name'"
+}
+
+# List all aliases
+list_aliases() {
+    log "Current aliases:"
+    
+    # Show aliases from current session
+    if alias 2>/dev/null | grep -q .; then
+        alias | sort
+    else
+        warn "No aliases found in current session"
+    fi
+    
+    # Show aliases from profile file
+    if [ -f "$PROFILE_FILE" ] && grep -q "^alias " "$PROFILE_FILE"; then
+        echo
+        log "Aliases in $PROFILE_FILE:"
+        grep "^alias " "$PROFILE_FILE" | sort
+    else
+        echo
+        warn "No aliases found in $PROFILE_FILE"
+    fi
+}
+
+# Main function
+main() {
+    local alias_name=""
+    local alias_command=""
+    local action="add"
+    local force=false
+    local dry_run=false
+    
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -l|--list)
+                action="list"
+                shift
+                ;;
+            -r|--remove)
+                action="remove"
+                alias_name="$2"
+                shift 2
+                ;;
+            -f|--force)
+                force=true
+                shift
+                ;;
+            -n|--dry-run)
+                dry_run=true
+                shift
+                ;;
+            --profile)
+                PROFILE_FILE="$2"
+                shift 2
+                ;;
+            -v|--version)
+                echo "add-alias version $VERSION"
+                exit 0
+                ;;
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            -*)
+                error "Unknown option: $1"
+                show_help
+                exit 1
+                ;;
+            *)
+                if [ -z "$alias_name" ]; then
+                    alias_name="$1"
+                elif [ -z "$alias_command" ]; then
+                    alias_command="$1"
+                else
+                    error "Too many arguments"
+                    show_help
+                    exit 1
+                fi
+                shift
+                ;;
+        esac
+    done
+    
+    # Execute action
+    case "$action" in
+        list)
+            list_aliases
+            ;;
+        remove)
+            if [ -z "$alias_name" ]; then
+                error "Alias name required for removal"
+                show_help
+                exit 1
+            fi
+            
+            remove_alias_from_profile "$alias_name" "$dry_run"
+            ;;
+        add)
+            if [ -z "$alias_name" ] || [ -z "$alias_command" ]; then
+                error "Both alias name and command are required"
+                show_help
+                exit 1
+            fi
+            
+            # Validation
+            if ! validate_alias_name "$alias_name"; then
+                exit 1
+            fi
+            
+            # Check conflicts
+            if ! check_conflicts "$alias_name" "$force"; then
+                log "Alias addition cancelled"
+                exit 1
+            fi
+            
+            # Test alias
+            if ! test_alias "$alias_name" "$alias_command"; then
+                exit 1
+            fi
+            
+            # Add alias
+            add_alias_to_profile "$alias_name" "$alias_command" "$dry_run"
+            
+            if [ "$dry_run" != "true" ]; then
+                success "Alias '$alias_name' added successfully!"
+                log "Usage: $alias_name"
+            fi
+            ;;
+    esac
+}
+
+# Run main function with all arguments
+main "$@"

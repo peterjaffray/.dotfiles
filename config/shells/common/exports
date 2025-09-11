@@ -1,0 +1,90 @@
+# Common environment variables for all shells
+
+# Editor preferences
+export EDITOR=nvim
+export VISUAL=nvim
+export PAGER=less
+
+# Locale settings
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# History settings
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoreboth:erasedups
+
+# Less configuration
+export LESS='-R -X -F'
+export LESSOPEN='|~/.lessfilter %s 2>&-'
+
+# Colors for ls
+if [ "$(uname -s)" = "Linux" ]; then
+    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=34:cd=34:su=0:sg=0:tw=0:ow=0:'
+else
+    export LSCOLORS=ExFxCxDxBxegedabagacad
+fi
+
+# Grep colors
+export GREP_COLOR='1;33'
+
+# Development tools
+export NODE_ENV=development
+export PYTHONPATH="${PYTHONPATH}:${HOME}/.local/lib/python"
+
+# Go configuration
+if command -v go >/dev/null 2>&1; then
+    export GOPATH="${HOME}/go"
+    export GOBIN="${GOPATH}/bin"
+fi
+
+# Rust configuration
+if [ -d "${HOME}/.cargo" ]; then
+    export CARGO_HOME="${HOME}/.cargo"
+fi
+
+# FZF configuration
+if command -v fzf >/dev/null 2>&1; then
+    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
+    
+    # Use fd for file finding if available
+    if command -v fd >/dev/null 2>&1; then
+        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+    fi
+fi
+
+# Ripgrep configuration
+if command -v rg >/dev/null 2>&1; then
+    export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/config"
+fi
+
+# Browser
+if command -v firefox >/dev/null 2>&1; then
+    export BROWSER=firefox
+elif command -v google-chrome >/dev/null 2>&1; then
+    export BROWSER=google-chrome
+elif command -v chromium >/dev/null 2>&1; then
+    export BROWSER=chromium
+fi
+
+# XDG Base Directory Specification
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="${HOME}/.cache"
+
+# Tool-specific configurations
+export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
+export KUBERNETES_CONFIG="${XDG_CONFIG_HOME}/kube"
+
+# Load secrets if available
+if [ -f "${HOME}/.config/dotfiles/secrets/secrets.sh" ]; then
+    source "${HOME}/.config/dotfiles/secrets/secrets.sh"
+fi
+
+# Machine-specific exports
+MACHINE_EXPORTS="${HOME}/.config/dotfiles/machines/current/exports"
+if [ -f "$MACHINE_EXPORTS" ]; then
+    source "$MACHINE_EXPORTS"
+fi

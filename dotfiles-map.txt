@@ -1,0 +1,14 @@
+# Dotfiles symlink mapping
+# Format: source_path=target_path
+# Variables like $HOME and ~ are supported
+
+# Shell configurations
+~/.dotfiles/config/shells/bash/bashrc=~/.bashrc
+~/.dotfiles/config/shells/bash/profile=~/.profile
+
+# Application configurations  
+~/.dotfiles/config/apps/git/gitconfig=~/.gitconfig
+~/.dotfiles/config/apps/tmux/tmux.conf=~/.tmux.conf
+
+# Fish shell (if exists)
+~/.dotfiles/config/shells/fish=~/.config/fish

@@ -1,0 +1,43 @@
+# Common packages for Ubuntu/Debian systems
+# These packages provide essential tools for the dotfiles system
+
+# Core tools
+curl
+wget
+git
+jq
+tree
+htop
+neofetch
+
+# Modern CLI alternatives
+bat
+fd-find
+ripgrep
+fzf
+
+# Development tools
+build-essential
+python3-pip
+nodejs
+npm
+
+# Editors
+neovim
+tmux
+
+# Network tools
+net-tools
+dnsutils
+
+# Archive tools
+unzip
+zip
+p7zip-full
+
+# System tools
+software-properties-common
+apt-transport-https
+ca-certificates
+gnupg
+lsb-release
