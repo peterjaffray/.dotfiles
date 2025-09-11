@@ -166,7 +166,8 @@ show_status() {
         
         # Check for broken symlinks
         local broken_count
-        broken_count=$(list_symlinks "" "csv" 2>/dev/null | grep -c ",missing" || echo "0")
+        broken_count=$(list_symlinks "" "csv" 2>/dev/null | grep -c ",missing" || true)
+        broken_count=${broken_count:-0}
         if [ "$broken_count" -gt 0 ]; then
             warn "$broken_count broken symlinks found"
         fi
