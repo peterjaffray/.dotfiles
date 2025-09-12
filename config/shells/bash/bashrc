@@ -130,4 +130,5 @@ fi
 # Initialize dotfiles management command completion
 if [ -f "${HOME}/.local/bin/dotfiles" ]; then
     complete -W "status sync backup restore diff add machine test secrets scripts help" dotfiles
-fi
+fiexport LANG=en_CA.UTF-8
+export LC_ALL=en_CA.UTF-8
