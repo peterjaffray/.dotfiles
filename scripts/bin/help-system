@@ -22,28 +22,33 @@ show_menu() {
         clear
         echo -e "${CYAN}📚 Dotfiles Documentation System${NC}"
         echo ""
-        echo -e "${GREEN}Select a topic:${NC}"
-        echo -e "  ${YELLOW}1${NC} - dotfiles    (management commands and structure)"
-        echo -e "  ${YELLOW}2${NC} - nvim        (configuration and shortcuts)"
-        echo -e "  ${YELLOW}3${NC} - tmux        (shortcuts and configuration)"
-        echo -e "  ${YELLOW}4${NC} - shells      (functions, aliases, and features)"
-        echo -e "  ${YELLOW}5${NC} - git         (aliases and workflows)"
-        echo -e "  ${YELLOW}6${NC} - docker      (container shortcuts)"
-        echo -e "  ${YELLOW}7${NC} - shortcuts   (all keyboard shortcuts)"
+        echo -e "${GREEN}Select topic (press number):${NC}"
+        echo -e "  ${YELLOW}1${NC} - cheatsheet  (super condensed ref)"
+        echo -e "  ${YELLOW}2${NC} - tmux        (session management)"
+        echo -e "  ${YELLOW}3${NC} - claude      (Claude Code commands)"
+        echo -e "  ${YELLOW}4${NC} - git         (version control)"
+        echo -e "  ${YELLOW}5${NC} - docker      (containers)"
+        echo -e "  ${YELLOW}6${NC} - dotfiles    (system management)"
+        echo -e "  ${YELLOW}7${NC} - shells      (functions & aliases)"
+        echo -e "  ${YELLOW}8${NC} - shortcuts   (keyboard shortcuts)"
         echo -e "  ${YELLOW}q${NC} - quit"
         echo ""
         echo -e "${BLUE}Environment:${NC} $(detect_environment)"
         echo ""
-        read -p "Enter your choice: " choice
+        read -p "Enter choice [1]: " choice
+        
+        # Default to cheatsheet if no input
+        choice=${choice:-1}
         
         case $choice in
-            1) clear; show_dotfiles_help; read -p "Press Enter to continue..." ;;
-            2) clear; show_nvim_help; read -p "Press Enter to continue..." ;;
-            3) clear; show_tmux_help; read -p "Press Enter to continue..." ;;
-            4) clear; show_shells_help; read -p "Press Enter to continue..." ;;
-            5) clear; show_git_help; read -p "Press Enter to continue..." ;;
-            6) clear; show_docker_help; read -p "Press Enter to continue..." ;;
-            7) clear; show_shortcuts_help; read -p "Press Enter to continue..." ;;
+            1) clear; show_cheatsheet_help; read -p "Press Enter to continue..." ;;
+            2) clear; show_tmux_help; read -p "Press Enter to continue..." ;;
+            3) clear; show_claude_help; read -p "Press Enter to continue..." ;;
+            4) clear; show_git_help; read -p "Press Enter to continue..." ;;
+            5) clear; show_docker_help; read -p "Press Enter to continue..." ;;
+            6) clear; show_dotfiles_help; read -p "Press Enter to continue..." ;;
+            7) clear; show_shells_help; read -p "Press Enter to continue..." ;;
+            8) clear; show_shortcuts_help; read -p "Press Enter to continue..." ;;
             q|Q) clear; return 0 ;;
             *) echo "Invalid choice. Press Enter to try again..."; read ;;
         esac
@@ -54,16 +59,46 @@ show_help() {
     echo -e "${CYAN}📚 Dotfiles Documentation System${NC}"
     echo ""
     echo -e "${GREEN}Available topics:${NC}"
-    echo -e "  ${YELLOW}dotfiles${NC}    - Dotfiles management commands and structure"
-    echo -e "  ${YELLOW}nvim${NC}        - Neovim configuration and shortcuts"
-    echo -e "  ${YELLOW}tmux${NC}        - Tmux shortcuts and configuration"
-    echo -e "  ${YELLOW}shells${NC}      - Shell functions, aliases, and features"
-    echo -e "  ${YELLOW}git${NC}         - Git aliases and workflows"
-    echo -e "  ${YELLOW}docker${NC}      - Docker and container shortcuts"
-    echo -e "  ${YELLOW}shortcuts${NC}   - All keyboard shortcuts and hotkeys"
+    echo -e "  ${YELLOW}cheatsheet${NC}  - Super condensed reference (default)"
+    echo -e "  ${YELLOW}tmux${NC}        - Session management & shortcuts"
+    echo -e "  ${YELLOW}claude${NC}      - Claude Code commands"
+    echo -e "  ${YELLOW}git${NC}         - Version control aliases"
+    echo -e "  ${YELLOW}docker${NC}      - Container shortcuts"
+    echo -e "  ${YELLOW}dotfiles${NC}    - System management commands"
+    echo -e "  ${YELLOW}shells${NC}      - Functions, aliases & features"
+    echo -e "  ${YELLOW}shortcuts${NC}   - Keyboard shortcuts"
     echo ""
     echo -e "${BLUE}Usage:${NC} ? [topic]"
-    echo -e "${BLUE}Example:${NC} ? nvim"
+    echo -e "${BLUE}Example:${NC} ? tmux"
+    echo ""
+}
+
+show_cheatsheet_help() {
+    echo -e "${CYAN}📋 QUICK REFERENCE CHEAT SHEET${NC}"
+    echo ""
+    echo -e "${GREEN}SESSION MGMT${NC}          ${GREEN}ALIAS MGMT${NC}"
+    echo "t                    alias-manager add N CMD"
+    echo "tmux attach          alias-manager list"
+    echo "tmux new -s NAME     alias-manager check"
+    echo ""
+    echo -e "${GREEN}NAVIGATION${NC}           ${GREEN}GIT${NC}"
+    echo "mkcd DIR             g / gs / ga / gc"
+    echo "up [N] / .. / ...    gp / gl / gd / gb"
+    echo "ll / la / l          gco / glog"
+    echo ""
+    echo -e "${GREEN}CLAUDE CODE${NC}          ${GREEN}DOCKER${NC}"
+    echo "claude mcp add ...   dc / dps / di"
+    echo "claude --dangerously-skip-permissions --resume"
+    echo "                     k (kubectl)"
+    echo ""
+    echo -e "${GREEN}SYSTEM${NC}               ${GREEN}HELP${NC}"
+    echo "dotfiles status      ? [topic] / h [topic]"
+    echo "dotfiles doctor      extract FILE"
+    echo "dotfiles sync        [i]/[n] = vim modes"
+    echo ""
+    echo -e "${GREEN}TMUX (C-b prefix)${NC}"
+    echo "C-b c/n/p           C-b %/\"           C-b d"
+    echo "create/next/prev    split v/h        detach"
     echo ""
 }
 
@@ -119,90 +154,88 @@ show_nvim_help() {
 }
 
 show_tmux_help() {
-    echo -e "${CYAN}🖥️  Tmux Configuration${NC}"
+    echo -e "${CYAN}🖥️  TMUX SESSION MGMT${NC}"
+    echo ""
+    echo -e "${GREEN}Quick Start:${NC}"
+    echo "t                       - session selector"
+    echo "tmux attach             - attach session"
+    echo "tmux new -s NAME        - named session"
+    echo ""
+    echo -e "${GREEN}Key Bindings (C-b prefix):${NC}"
+    echo "C-b c / n / p           - create/next/prev window"
+    echo "C-b % / \"               - split vert/horiz"
+    echo "C-b d                   - detach session"
+    echo "C-b [                   - scroll mode (q to quit)"
+    echo ""
+}
+
+show_claude_help() {
+    echo -e "${CYAN}🤖 CLAUDE CODE${NC}"
+    echo ""
+    echo -e "${GREEN}Common Commands:${NC}"
+    echo "claude mcp add ...      - add MCP integration"
+    echo "claude --dangerously-skip-permissions --resume"
+    echo "                        - resume with skip perms"
+    echo "claude --help           - show all commands"
     echo ""
     echo -e "${GREEN}Session Management:${NC}"
-    echo "  tmux                    - Start new session"
-    echo "  tmux attach             - Attach to existing session"
-    echo "  tmux attach -t main     - Attach to 'main' session"
-    echo "  tmux new -s name        - Create named session"
-    echo ""
-    echo -e "${GREEN}Key Bindings (Ctrl-b prefix):${NC}"
-    echo "  Ctrl-b c                - Create new window"
-    echo "  Ctrl-b n                - Next window"
-    echo "  Ctrl-b p                - Previous window"
-    echo "  Ctrl-b %                - Split vertically"
-    echo "  Ctrl-b \"                - Split horizontally"
-    echo "  Ctrl-b d                - Detach session"
-    echo ""
-    echo -e "${GREEN}Configuration:${NC}"
-    echo "  ~/.tmux.conf            - Tmux configuration file"
-    echo "  ~/.dotfiles/config/apps/tmux/ - Dotfiles tmux config"
+    echo "claude chat             - start chat session"
+    echo "claude code             - code mode"
     echo ""
 }
 
 show_shells_help() {
-    echo -e "${CYAN}🐚 Shell Functions & Aliases${NC}"
+    echo -e "${CYAN}🐚 SHELLS & ALIASES${NC}"
     echo ""
-    echo -e "${GREEN}Useful Functions:${NC}"
-    echo "  mkcd directory          - Create and enter directory"
-    echo "  up [N]                  - Go up N directories (default 1)"
-    echo "  extract archive         - Smart archive extraction"
+    echo -e "${GREEN}Alias Management:${NC}"
+    echo "alias-manager add N CMD     - add cross-shell alias"
+    echo "alias-manager list          - show all w/ status"
+    echo "alias-manager check         - validate aliases"
     echo ""
-    echo -e "${GREEN}Directory Navigation:${NC}"
-    echo "  ..                      - cd .."
-    echo "  ...                     - cd ../.."
-    echo "  ....                    - cd ../../.."
-    echo "  ll                      - ls -lah (detailed list)"
-    echo "  la                      - ls -A (show hidden)"
-    echo "  l                       - ls -CF (classified)"
+    echo -e "${GREEN}Functions:${NC}"
+    echo "mkcd DIR                    - create & enter dir"
+    echo "up [N]                      - go up N dirs"
+    echo "extract FILE                - smart extraction"
     echo ""
-    echo -e "${GREEN}System Info:${NC}"
-    echo "  df                      - df -h (disk usage)"
-    echo "  du                      - du -h (directory usage)"
-    echo "  free                    - free -h (memory usage)"
+    echo -e "${GREEN}Navigation:${NC}"
+    echo ".. / ... / ....             - go up 1/2/3 dirs"
+    echo "ll / la / l                 - list variants"
     echo ""
-    echo -e "${GREEN}Editor:${NC}"
-    echo "  v, vi, vim              - Open nvim"
+    echo -e "${GREEN}Editors:${NC}"
+    echo "v / vi / vim                - nvim (with fallbacks)"
+    echo ""
+    echo -e "${GREEN}Vim Modes in Shell:${NC}"
+    echo "[i] = insert   [n] = normal"
+    echo "ESC = normal   i/a = insert"
     echo ""
 }
 
 show_git_help() {
-    echo -e "${CYAN}📦 Git Shortcuts${NC}"
+    echo -e "${CYAN}📦 GIT SHORTCUTS${NC}"
     echo ""
-    echo -e "${GREEN}Basic Commands:${NC}"
-    echo "  g                       - git"
-    echo "  gst                     - git status"
-    echo "  ga                      - git add"
-    echo "  gc                      - git commit"
-    echo "  gp                      - git push"
-    echo "  gl                      - git pull"
-    echo "  gd                      - git diff"
+    echo -e "${GREEN}Basic:${NC}"
+    echo "g / gs / ga / gc            - git/status/add/commit"
+    echo "gp / gl / gd                - push/pull/diff"
     echo ""
-    echo -e "${GREEN}Branch Management:${NC}"
-    echo "  gb                      - git branch"
-    echo "  gco                     - git checkout"
-    echo ""
-    echo -e "${GREEN}History:${NC}"
-    echo "  glog                    - git log --oneline --graph --decorate"
+    echo -e "${GREEN}Branches:${NC}"
+    echo "gb / gco                    - branch/checkout"
+    echo "glog                        - log --graph --oneline"
     echo ""
 }
 
 show_docker_help() {
-    echo -e "${CYAN}🐳 Docker Shortcuts${NC}"
+    echo -e "${CYAN}🐳 DOCKER & CONTAINERS${NC}"
     echo ""
     echo -e "${GREEN}Docker Compose:${NC}"
-    echo "  dc                      - docker compose"
-    echo "  dc up                   - Start services"
-    echo "  dc down                 - Stop services"
-    echo "  dc logs                 - View logs"
+    echo "dc                          - docker compose"
+    echo "dc up/down/logs             - start/stop/view"
     echo ""
-    echo -e "${GREEN}Docker Commands:${NC}"
-    echo "  dps                     - docker ps (running containers)"
-    echo "  docker images           - List images"
+    echo -e "${GREEN}Docker:${NC}"
+    echo "dps                         - docker ps"
+    echo "di                          - docker images"
     echo ""
-    echo -e "${GREEN}Kubernetes (if available):${NC}"
-    echo "  k                       - kubectl"
+    echo -e "${GREEN}Kubernetes:${NC}"
+    echo "k                           - kubectl (if installed)"
     echo ""
 }
 
@@ -263,17 +296,14 @@ main() {
     fi
     
     case "$topic" in
-        "dotfiles"|"dot")
-            show_dotfiles_help
-            ;;
-        "nvim"|"vim"|"neovim")
-            show_nvim_help
+        "cheatsheet"|"cheat"|"ref")
+            show_cheatsheet_help
             ;;
         "tmux")
             show_tmux_help
             ;;
-        "shells"|"shell"|"bash"|"zsh"|"fish")
-            show_shells_help
+        "claude")
+            show_claude_help
             ;;
         "git")
             show_git_help
@@ -281,8 +311,17 @@ main() {
         "docker"|"containers")
             show_docker_help
             ;;
+        "dotfiles"|"dot")
+            show_dotfiles_help
+            ;;
+        "shells"|"shell"|"bash"|"zsh"|"fish")
+            show_shells_help
+            ;;
         "shortcuts"|"keys"|"hotkeys")
             show_shortcuts_help
+            ;;
+        "nvim"|"vim"|"neovim")
+            show_nvim_help
             ;;
         *)
             echo -e "${RED}Unknown topic: $topic${NC}"

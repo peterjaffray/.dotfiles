@@ -74,6 +74,9 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# Enable vim mode
+bindkey -v
+
 # Enhanced completion settings
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -85,13 +88,27 @@ setopt COMPLETE_ALIASES
 setopt AUTO_MENU
 setopt ALWAYS_TO_END
 
-# Custom short prompt
+# Vim mode indicator
+function zle-keymap-select {
+    case $KEYMAP in
+        vicmd) MODE='%F{white}%B[n]%b%f' ;;
+        viins|main) MODE='%F{green}%B[i]%b%f' ;;
+        *) MODE='%F{green}%B[i]%b%f' ;;
+    esac
+    zle reset-prompt
+}
+zle -N zle-keymap-select
+
+# Initialize vim mode
+MODE='%F{green}%B[I]%b%f'
+
+# Custom short prompt with vim mode
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats ' (%b)'
 zstyle ':vcs_info:*' enable git
 setopt PROMPT_SUBST
-PROMPT='%F{cyan}zsh${vcs_info_msg_0_}%f> '
+PROMPT='${MODE}%F{cyan}%B(zsh)%b${vcs_info_msg_0_}%f> '
 
 # User configuration
 

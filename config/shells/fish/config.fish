@@ -1,4 +1,7 @@
 if status is-interactive
+    # Enable vim key bindings
+    fish_vi_key_bindings
+    
     # Commands to run in interactive sessions can go here
 
     # Powerline setup (disabled for custom prompt)

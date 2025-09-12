@@ -1,5 +1,22 @@
 # Common aliases that work across all shells
-# These will be converted to appropriate format for each shell
+# Supports graceful fallbacks when commands aren't installed
+
+# Function to create alias only if command exists, with fallbacks and helpful messages
+safe_alias() {
+    local name="$1"
+    local cmd="$2"
+    local fallback="$3"
+    local install_msg="$4"
+    
+    if command -v "${cmd%% *}" >/dev/null 2>&1; then
+        alias "$name"="$cmd"
+    elif [ -n "$fallback" ]; then
+        alias "$name"="$fallback"
+    elif [ -n "$install_msg" ]; then
+        # Create a wrapper function that shows install message
+        eval "${name}() { echo '💡 $install_msg' >&2; return 127; }"
+    fi
+}
 
 # File operations
 alias ll='ls -alF'
@@ -35,18 +52,18 @@ alias gd='git diff'
 alias gb='git branch'
 alias glog='git log --oneline --graph --decorate'
 
-# Docker aliases
-alias dc='docker compose'
+# Docker aliases (with fallbacks)
+safe_alias dc "docker compose" "docker-compose" "Install Docker Compose: apt install docker-compose-plugin"
 alias dps='docker ps'
 alias di='docker images'
 
-# Kubernetes
-alias k='kubectl'
+# Kubernetes (only if kubectl is installed)
+safe_alias k "kubectl" "" "Install kubectl: https://kubernetes.io/docs/tasks/tools/"
 
-# Editor aliases
-alias v='nvim'
-alias vi='nvim'
-alias vim='nvim'
+# Editor aliases with fallbacks
+safe_alias v "nvim" "vim" "Install Neovim: apt install neovim / brew install neovim"
+safe_alias vi "nvim" "vim" "Install Neovim: apt install neovim / brew install neovim"  
+safe_alias vim "nvim" "vim" "Install Neovim: apt install neovim / brew install neovim"
 
 # Network
 alias ping='ping -c 4'
@@ -61,23 +78,24 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Modern alternatives (if available)
-if command -v bat >/dev/null 2>&1; then
-    alias cat='bat'
-fi
+# Modern alternatives with fallbacks
+safe_alias cat "bat" "cat" "Install 'bat' for syntax highlighting: apt install bat / brew install bat"
+safe_alias tree "exa --tree" "tree" "Install 'exa' for better tree: apt install exa / brew install exa"
+safe_alias find "fd" "find" "Install 'fd' for faster find: apt install fd-find / brew install fd"
 
+# Modern ls alternatives with smart fallbacks
 if command -v exa >/dev/null 2>&1; then
     alias ls='exa'
     alias ll='exa -la'
-    alias tree='exa --tree'
+elif command -v ls >/dev/null 2>&1; then
+    alias ls='ls --color=auto 2>/dev/null || ls'  # Handle systems without --color
 fi
 
-if command -v fd >/dev/null 2>&1; then
-    alias find='fd'
-fi
-
+# Modern grep with fallback
 if command -v rg >/dev/null 2>&1; then
     alias grep='rg'
+else
+    alias grep='grep --color=auto'
 fi
 
 # System-specific aliases

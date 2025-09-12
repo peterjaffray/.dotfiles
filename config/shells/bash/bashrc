@@ -42,6 +42,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Enable vim mode
+set -o vi
+
 # Enhanced completion settings
 bind 'set completion-ignore-case on'
 bind 'set completion-map-case on'
@@ -59,7 +62,7 @@ fi
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Set short prompt with git support
+# Vim mode and git branch for prompt
 parse_git_branch() {
     local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
     if [ -n "$branch" ]; then
@@ -67,19 +70,33 @@ parse_git_branch() {
     fi
 }
 
-PS1='\[\033[01;36m\]bash$(parse_git_branch)\[\033[00m\]> '
+show_vim_mode() {
+    case "${BASH_KEYMAP:-emacs}" in
+        vi-ins) echo -e "\[\033[01;32m\][i]" ;;
+        vi-cmd) echo -e "\[\033[01;37m\][n]" ;;
+        *) echo -e "\[\033[01;32m\][i]" ;;
+    esac
+}
 
-# Powerline prompt (if available)
-if command -v powerline-daemon >/dev/null 2>&1; then
-    powerline-daemon -q
-    POWERLINE_BASH_CONTINUATION=1
-    POWERLINE_BASH_SELECT=1
-    if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
-        source /usr/share/powerline/bindings/bash/powerline.sh
-    elif [ -f ~/.local/lib/python*/site-packages/powerline/bindings/bash/powerline.sh ]; then
-        source ~/.local/lib/python*/site-packages/powerline/bindings/bash/powerline.sh
-    fi
-fi
+set_prompt() {
+    PS1="$(show_vim_mode)\[\033[01;36m\](bash)$(parse_git_branch)\[\033[00m\]> "
+}
+
+# Update prompt on keymap change
+bind 'set show-mode-in-prompt on'
+PROMPT_COMMAND=set_prompt
+
+# Powerline prompt (disabled for custom prompt)
+# if command -v powerline-daemon >/dev/null 2>&1; then
+#     powerline-daemon -q
+#     POWERLINE_BASH_CONTINUATION=1
+#     POWERLINE_BASH_SELECT=1
+#     if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+#         source /usr/share/powerline/bindings/bash/powerline.sh
+#     elif [ -f ~/.local/lib/python*/site-packages/powerline/bindings/bash/powerline.sh ]; then
+#         source ~/.local/lib/python*/site-packages/powerline/bindings/bash/powerline.sh
+#     fi
+# fi
 
 # Tool initializations (lazy loading for performance)
 # NVM (Node Version Manager)
