@@ -11,4 +11,3 @@
 ~/.dotfiles/config/apps/tmux/tmux.conf=~/.tmux.conf
 
 # Fish shell (if exists)
-~/.dotfiles/config/shells/fish=~/.config/fish

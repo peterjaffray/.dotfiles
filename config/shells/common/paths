@@ -39,7 +39,7 @@ remove_from_path() {
 # Add user bin directories
 add_to_path "${HOME}/.local/bin" start
 add_to_path "${HOME}/bin" start
-add_to_path "${HOME}/.config/scripts/bin" start
+add_to_path "${HOME}/.dotfiles/scripts/bin" start
 
 # Development tools paths
 add_to_path "${HOME}/.cargo/bin"

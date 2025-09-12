@@ -8,7 +8,7 @@ case $- in
 esac
 
 # Source common shell configurations
-DOTFILES_DIR="${HOME}/.config/dotfiles"
+DOTFILES_DIR="${HOME}/.dotfiles/config"
 COMMON_DIR="${DOTFILES_DIR}/shells/common"
 
 # Load common exports first (needed by other configs)
