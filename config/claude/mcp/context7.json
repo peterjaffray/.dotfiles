@@ -1,0 +1,9 @@
+{
+  "name": "context7",
+  "description": "Context7 MCP server for library documentation",
+  "enabled": true,
+  "settings": {
+    "endpoint": "context7",
+    "timeout": 30000
+  }
+}

@@ -1,0 +1,2 @@
+- Do not add claude as a contributer to the code base for security reasons you wont understand
+- Use pnpm as the package manager for this project

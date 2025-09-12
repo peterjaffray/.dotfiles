@@ -1,0 +1,19 @@
+{
+  "description": "System administration permissions",
+  "permissions": {
+    "allow": [
+      "Bash(sudo apt-get:*)",
+      "Bash(sudo apt:*)",
+      "Bash(sudo dnf:*)",
+      "Bash(sudo yum:*)",
+      "Bash(sudo pacman:*)",
+      "Bash(sudo systemctl:*)",
+      "Bash(sudo service:*)",
+      "Bash(sudo journalctl:*)",
+      "Bash(sudo netstat:*)",
+      "Bash(sudo ss:*)",
+      "Bash(sudo lsof:*)",
+      "Bash(sudo update-locale:*)"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "dev",
+  "description": "Development workflow commands",
+  "commands": {
+    "install": {
+      "description": "Install project dependencies",
+      "command": "pnpm install"
+    },
+    "test": {
+      "description": "Run tests",
+      "command": "pnpm test"
+    },
+    "build": {
+      "description": "Build project",
+      "command": "pnpm build"
+    },
+    "lint": {
+      "description": "Run linter",
+      "command": "pnpm lint"
+    },
+    "format": {
+      "description": "Format code",
+      "command": "pnpm format"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "dotfiles",
+  "description": "Manage dotfiles configuration",
+  "commands": {
+    "sync": {
+      "description": "Sync dotfiles with repository",
+      "command": "cd ~/.dotfiles && ./dotfiles sync"
+    },
+    "status": {
+      "description": "Show dotfiles status",
+      "command": "cd ~/.dotfiles && ./dotfiles status"
+    },
+    "backup": {
+      "description": "Create dotfiles backup",
+      "command": "cd ~/.dotfiles && ./dotfiles backup"
+    },
+    "doctor": {
+      "description": "Run dotfiles diagnostics",
+      "command": "cd ~/.dotfiles && ./dotfiles doctor"
+    }
+  }
+}

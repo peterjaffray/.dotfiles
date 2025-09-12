@@ -10,4 +10,11 @@
 ~/.dotfiles/config/apps/git/gitconfig=~/.gitconfig
 ~/.dotfiles/config/apps/tmux/tmux.conf=~/.tmux.conf
 
+# Claude Code configurations
+~/.dotfiles/config/claude/settings.json=~/.claude/settings.json
+~/.dotfiles/config/claude/settings.local.json=~/.claude/settings.local.json
+~/.dotfiles/config/claude/CLAUDE.md=~/.claude/CLAUDE.md
+~/.dotfiles/config/claude/statusline-powerline.sh=~/.claude/statusline-powerline.sh
+~/.dotfiles/config/claude/plugins/config.json=~/.claude/plugins/config.json
+
 # Fish shell (if exists)
