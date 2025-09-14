@@ -56,10 +56,26 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Git prompt function
+__git_ps1() {
+    local branch=$(git branch 2>/dev/null | grep '^*' | sed 's/* //')
+    if [ -n "$branch" ]; then
+        echo " ($branch)"
+    fi
+}
+
+# Vi mode indicator for bash
+__vi_mode_prompt() {
+    case "${READLINE_LINE:-}" in
+        *) echo -e "\033[1;32m[i]\033[0m" ;; # insert mode (default)
+    esac
+}
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # Fish-style prompt: [i](bash)(git_branch)>
+    PS1='\[\033[1;32m\][i]\[\033[0m\]\[\033[1;36m\](bash)\[\033[0m\]\[\033[33m\]$(__git_ps1)\[\033[0m\]\[\033[37m\]> \[\033[0m\]'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='[i](bash)$(__git_ps1)> '
 fi
 unset color_prompt force_color_prompt
 
@@ -119,3 +135,6 @@ fi
 if [ -f "$HOME/.dotfiles/config/shells/bash/bashrc" ]; then
     source "$HOME/.dotfiles/config/shells/bash/bashrc"
 fi
+export LANG=en_CA.UTF-8
+export LC_ALL=en_CA.UTF-8
+export TZ=America/Edmonton
