@@ -1,2 +1,0 @@
-# Stub file - sources the actual config from XDG location
-source-file ~/.config/tmux/tmux.conf

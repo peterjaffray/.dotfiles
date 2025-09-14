@@ -1,4 +1,4 @@
-function claude-context7 --wraps='claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: ctx7sk-e5e5d263-18a1-4d7b-b2b3-b2c40a84cd1c"' --description 'alias claude-context7=claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: ctx7sk-e5e5d263-18a1-4d7b-b2b3-b2c40a84cd1c"'
-  claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: ctx7sk-e5e5d263-18a1-4d7b-b2b3-b2c40a84cd1c" $argv
+function claude-context7 --wraps='claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: ctx7sk-e94778b9-0ef9-4cb2-bed1-440ab5f10139"' --description 'alias claude-context7=claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: ctx7sk-e94778b9-0ef9-4cb2-bed1-440ab5f10139"'
+  claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: ctx7sk-e94778b9-0ef9-4cb2-bed1-440ab5f10139" $argv
         
 end

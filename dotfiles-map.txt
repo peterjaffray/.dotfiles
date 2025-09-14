@@ -5,16 +5,26 @@
 # Shell configurations
 ~/.dotfiles/config/shells/bash/bashrc=~/.bashrc
 ~/.dotfiles/config/shells/bash/profile=~/.profile
+~/.dotfiles/config/shells/zsh/zshrc=~/.zshrc
 
-# Application configurations  
-~/.dotfiles/config/apps/git/gitconfig=~/.gitconfig
-~/.dotfiles/config/apps/tmux/tmux.conf=~/.tmux.conf
+# Fish shell (special - entire directory goes in .config)
+~/.dotfiles/config/shells/fish=~/.config/fish
+
+# Editor configurations
+~/.dotfiles/config/editors/nvim=~/.config/nvim
+
+# Terminal configurations
+~/.dotfiles/config/terminal/tmux=~/.config/tmux
+
+# Tool configurations
+~/.dotfiles/config/tools/git/gitconfig=~/.gitconfig
 
 # Claude Code configurations
-~/.dotfiles/config/claude/settings.json=~/.claude/settings.json
-~/.dotfiles/config/claude/settings.local.json=~/.claude/settings.local.json
-~/.dotfiles/config/claude/CLAUDE.md=~/.claude/CLAUDE.md
-~/.dotfiles/config/claude/statusline-powerline.sh=~/.claude/statusline-powerline.sh
-~/.dotfiles/config/claude/plugins/config.json=~/.claude/plugins/config.json
+~/.dotfiles/config/tools/claude/settings.json=~/.claude/settings.json
+~/.dotfiles/config/tools/claude/settings.local.json=~/.claude/settings.local.json
+~/.dotfiles/config/tools/claude/CLAUDE.md=~/.claude/CLAUDE.md
+~/.dotfiles/config/tools/claude/statusline-powerline.sh=~/.claude/statusline-powerline.sh
+~/.dotfiles/config/tools/claude/plugins/config.json=~/.claude/plugins/config.json
 
-# Fish shell (if exists)
+# Hushlogin (suppress terminal welcome messages)
+~/.dotfiles/.hushlogin=~/.hushlogin

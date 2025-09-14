@@ -1,13 +1,6 @@
 if status is-interactive
-    # Enable vim key bindings
-    fish_vi_key_bindings
-    
     # Commands to run in interactive sessions can go here
 
-    # Powerline setup (disabled for custom prompt)
-    # set fish_function_path $fish_function_path "/usr/share/powerline/bindings/fish"
-    # source /usr/share/powerline/bindings/fish/powerline-setup.fish
-    # powerline-setup
 
     # Environment variables
     set -gx EDITOR nvim
