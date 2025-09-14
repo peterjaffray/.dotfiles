@@ -62,29 +62,29 @@ fi
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Vim mode and git branch for prompt
-parse_git_branch() {
-    local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-    if [ -n "$branch" ]; then
-        echo " ($branch)"
-    fi
-}
-
-show_vim_mode() {
-    case "${BASH_KEYMAP:-emacs}" in
-        vi-ins) echo -e "\[\033[01;32m\][i]" ;;
-        vi-cmd) echo -e "\[\033[01;37m\][n]" ;;
-        *) echo -e "\[\033[01;32m\][i]" ;;
-    esac
-}
-
-set_prompt() {
-    PS1="$(show_vim_mode)\[\033[01;36m\](bash)$(parse_git_branch)\[\033[00m\]> "
-}
-
-# Update prompt on keymap change
-bind 'set show-mode-in-prompt on'
-PROMPT_COMMAND=set_prompt
+# Vim mode and git branch for prompt - DISABLED (configured in main .bashrc)
+# parse_git_branch() {
+#     local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+#     if [ -n "$branch" ]; then
+#         echo " ($branch)"
+#     fi
+# }
+#
+# show_vim_mode() {
+#     case "${BASH_KEYMAP:-emacs}" in
+#         vi-ins) echo -e "\[\033[01;32m\][i]" ;;
+#         vi-cmd) echo -e "\[\033[01;37m\][n]" ;;
+#         *) echo -e "\[\033[01;32m\][i]" ;;
+#     esac
+# }
+#
+# set_prompt() {
+#     PS1="$(show_vim_mode)\[\033[01;36m\](bash)$(parse_git_branch)\[\033[00m\]> "
+# }
+#
+# # Update prompt on keymap change
+# bind 'set show-mode-in-prompt on'
+# PROMPT_COMMAND=set_prompt
 
 # Powerline prompt (disabled for custom prompt)
 # if command -v powerline-daemon >/dev/null 2>&1; then
