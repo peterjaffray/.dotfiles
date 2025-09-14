@@ -8,7 +8,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# Disable theme - using custom prompt instead
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -73,6 +74,31 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+
+# Custom prompt configuration
+# Git branch function
+git_branch() {
+    local branch=$(git branch 2>/dev/null | grep '^*' | sed 's/* //')
+    if [ -n "$branch" ]; then
+        echo " ($branch)"
+    fi
+}
+
+# Vi mode indicator
+vi_mode_prompt_info() {
+    echo "${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
+}
+
+# Update prompt on mode change
+function zle-keymap-select zle-line-init {
+    zle reset-prompt
+}
+zle -N zle-keymap-select
+zle -N zle-line-init
+
+# Set prompt: (SHELL)[MODE] FOLDER (BRANCH)>
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}(zsh)%f%F{green}$(vi_mode_prompt_info)%f %F{blue}%1~%f%F{yellow}$(git_branch)%f> '
 
 # User configuration
 
@@ -220,8 +246,8 @@ export NVM_DIR="$HOME/.nvm"
 # Rust setup (if installed)
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-# tmux auto-attach
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    # Attach to existing session or create new one
-    tmux attach-session -t main || tmux new-session -s main
-fi
+# tmux auto-attach disabled - launch manually if needed
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#     # Attach to existing session or create new one
+#     tmux attach-session -t main || tmux new-session -s main
+# fi

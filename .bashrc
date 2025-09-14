@@ -64,18 +64,16 @@ __git_ps1() {
     fi
 }
 
-# Vi mode indicator for bash
-__vi_mode_prompt() {
-    case "${READLINE_LINE:-}" in
-        *) echo -e "\033[1;32m[i]\033[0m" ;; # insert mode (default)
-    esac
+# Get current directory name only
+__pwd_short() {
+    echo "${PWD##*/}"
 }
 
 if [ "$color_prompt" = yes ]; then
-    # Fish-style prompt: [i](bash)(git_branch)>
-    PS1='\[\033[1;32m\][i]\[\033[0m\]\[\033[1;36m\](bash)\[\033[0m\]\[\033[33m\]$(__git_ps1)\[\033[0m\]\[\033[37m\]> \[\033[0m\]'
+    # New prompt format: (SHELL)[MODE] FOLDER (BRANCH)>
+    PS1='\[\033[1;36m\](bash)\[\033[0m\]\[\033[1;32m\][I]\[\033[0m\] \[\033[1;34m\]$(__pwd_short)\[\033[0m\]\[\033[33m\]$(__git_ps1)\[\033[0m\]> '
 else
-    PS1='[i](bash)$(__git_ps1)> '
+    PS1='(bash)[I] $(__pwd_short)$(__git_ps1)> '
 fi
 unset color_prompt force_color_prompt
 
