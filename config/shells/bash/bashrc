@@ -130,8 +130,8 @@ if ! shopt -oq posix; then
   fi
 fi
 # Load common shell configurations
-if [ -f "$HOME/.dotfiles/config/shells/common/aliases" ]; then
-    source "$HOME/.dotfiles/config/shells/common/aliases"
+if [ -f "$HOME/.dotfiles/config/shells/common/aliases.sh" ]; then
+    source "$HOME/.dotfiles/config/shells/common/aliases.sh"
 fi
 if [ -f "$HOME/.dotfiles/config/shells/common/functions" ]; then
     source "$HOME/.dotfiles/config/shells/common/functions"
@@ -139,3 +139,12 @@ fi
 export LANG=en_CA.UTF-8
 export LC_ALL=en_CA.UTF-8
 export TZ=America/Edmonton
+
+# pnpm
+export PNPM_HOME="/home/r11/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+export PATH="$PATH:/home/r11/.dotfiles/scripts/bin"

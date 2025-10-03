@@ -102,6 +102,11 @@ PROMPT='%F{cyan}(zsh)%f%F{green}$(vi_mode_prompt_info)%f %F{blue}%1~%f%F{yellow}
 
 # User configuration
 
+# Load common aliases shared across shells
+if [ -f "$HOME/.dotfiles/config/shells/common/aliases.sh" ]; then
+    source "$HOME/.dotfiles/config/shells/common/aliases.sh"
+fi
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment

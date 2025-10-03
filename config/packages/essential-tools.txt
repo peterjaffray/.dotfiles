@@ -1,0 +1,140 @@
+# Essential Tools Package List
+# Core software dependencies for dotfiles setup
+# These tools are installed via the dependency manager
+
+# === SYSTEM ESSENTIALS ===
+# Core utilities
+curl
+wget
+git
+make
+gcc
+g++
+build-essential
+software-properties-common
+apt-transport-https
+ca-certificates
+gnupg
+lsb-release
+
+# === SHELL & TERMINAL ===
+# Shells
+fish
+zsh
+bash
+
+# Terminal multiplexer
+tmux
+
+# === EDITORS ===
+neovim
+vim
+
+# === CLOUD TOOLS ===
+# AWS CLI (installed via pip or dedicated installer)
+awscli
+
+# Google Cloud SDK (requires special repo)
+# google-cloud-sdk
+
+# Azure CLI
+# azure-cli
+
+# === DEVELOPMENT TOOLS ===
+# Python
+python3
+python3-pip
+python3-venv
+python3-dev
+
+# Node.js (via NVM)
+# Note: Node is installed via NVM, not apt
+
+# Container tools
+docker.io
+docker-compose
+podman
+
+# === MODERN CLI TOOLS ===
+# Better alternatives to standard tools
+bat           # Better cat
+exa           # Better ls
+fd-find       # Better find
+ripgrep       # Better grep
+fzf           # Fuzzy finder
+jq            # JSON processor
+yq            # YAML processor
+htop          # Better top
+ncdu          # Disk usage analyzer
+
+# === NETWORKING ===
+net-tools
+dnsutils
+nmap
+netcat
+openssh-client
+openssh-server
+rsync
+
+# === ARCHIVE TOOLS ===
+unzip
+zip
+p7zip-full
+tar
+gzip
+bzip2
+xz-utils
+
+# === VERSION CONTROL ===
+git-lfs
+gh             # GitHub CLI
+hub            # Another GitHub CLI tool
+
+# === SECURITY TOOLS ===
+gnupg2
+pass
+pwgen
+
+# === SYSTEM MONITORING ===
+htop
+iotop
+iftop
+sysstat
+dstat
+
+# === FILE MANAGEMENT ===
+tree
+ncdu
+ranger
+mc
+
+# === TEXT PROCESSING ===
+sed
+awk
+grep
+ag            # Silver searcher
+pandoc
+
+# === DATABASE CLIENTS ===
+postgresql-client
+mysql-client
+redis-tools
+sqlite3
+
+# === INFRASTRUCTURE AS CODE ===
+terraform
+ansible
+kubectl
+
+# === CODE QUALITY ===
+shellcheck
+yamllint
+hadolint
+
+# === MISC UTILITIES ===
+xclip         # Clipboard support
+xsel          # Alternative clipboard
+tldr          # Simplified man pages
+neofetch      # System info
+screenfetch   # Alternative system info
+direnv        # Directory-based environments

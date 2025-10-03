@@ -33,6 +33,7 @@ source "$LIB_DIR/backup-manager.sh"
 source "$LIB_DIR/machine-detector.sh"
 source "$LIB_DIR/symlink-manager.sh"
 source "$LIB_DIR/secret-manager.sh"
+source "$LIB_DIR/dependency-manager.sh"
 
 # Usage information
 show_usage() {

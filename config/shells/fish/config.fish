@@ -64,8 +64,8 @@ if status is-interactive
     abbr -a vi nvim
     abbr -a vim nvim
 
-    # Display welcome screen
-    fish_welcome_screen
+    # Display welcome screen (disabled - remove fish_greeting.fish to re-enable)
+    # fish_welcome_screen
 end
 
 # Path management
