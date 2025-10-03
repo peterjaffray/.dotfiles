@@ -38,6 +38,11 @@ backups/
 .idea/
 *.sublime-*
 
+# Tmux plugins (installed locally via TPM)
+config/terminal/tmux/plugins/tpm/
+config/terminal/tmux/plugins/tmux-*/
+config/terminal/tmux/resurrect/
+
 # SSH keys (but keep ssh config template)
 config/apps/ssh/id_*
 config/apps/ssh/known_hosts
