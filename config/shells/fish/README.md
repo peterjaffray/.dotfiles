@@ -21,10 +21,13 @@ This document provides comprehensive documentation for all customizations made t
 This Fish shell configuration provides:
 - Enhanced productivity with smart abbreviations
 - Custom functions for common tasks
-- Beautiful welcome screen with command reference
+- ~~Beautiful welcome screen~~ Silent startup (disabled via `fish_greeting.fish`)
 - Optimized startup performance
 - Integration with modern CLI tools (fzf, fd, ripgrep)
 - Organized, maintainable configuration structure
+- **NEW**: Fisher plugin manager with essential plugins
+- **NEW**: Cross-shell alias compatibility via `conf.d/01-aliases.fish`
+- **NEW**: NVM integration for Node.js management
 
 ## Directory Structure
 
@@ -32,18 +35,55 @@ This Fish shell configuration provides:
 ~/.config/fish/
 ├── README.md               # This documentation
 ├── config.fish            # Main configuration file
+├── fishfile               # Fisher plugin list (NEW)
 ├── conf.d/                # Configuration snippets
-│   └── omf.fish          # Oh My Fish configuration
+│   ├── 01-aliases.fish   # Cross-shell aliases (NEW)
+│   ├── fzf.fish         # FZF configuration (NEW)
+│   ├── nvm.fish         # NVM support (NEW)
+│   ├── z.fish           # Z directory jumping (NEW)
+│   └── ssh-agent.fish   # SSH agent config (NEW)
 ├── functions/            # Custom functions
 │   ├── backup.fish
 │   ├── extract.fish
 │   ├── fish_config_summary.fish
-│   ├── fish_welcome_screen.fish
+│   ├── fish_greeting.fish        # Disables welcome (NEW)
+│   ├── fish_welcome_screen.fish  # Disabled screen
 │   ├── list_completions.fish
 │   ├── mkcd.fish
 │   ├── reload.fish
 │   └── up.fish
 └── completions/          # Custom completions
+```
+
+## Fisher Plugin Manager (NEW)
+
+Fish now uses Fisher for plugin management with these installed plugins:
+
+### Installed Plugins:
+- **nvm.fish** - Node Version Manager for Fish
+- **z** - Smart directory jumping (`z partial-path`)
+- **fzf.fish** - FZF integration with keybindings
+- **autopair.fish** - Auto-close brackets and quotes
+- **meaningful.fish** - Better error messages
+- **fish-abbreviation-tips** - Shows available abbreviations
+- **replay.fish** - Run bash commands in Fish
+- **bass** - Source bash scripts (`bass source ~/.bashrc`)
+- **fish-ssh-agent** - SSH agent management
+- **plugin-git** - Git abbreviations and functions
+
+### Plugin Management:
+```bash
+# Update all plugins
+fisher update
+
+# List installed plugins
+fisher list
+
+# Add new plugin
+fisher install owner/plugin
+
+# Remove plugin
+fisher remove owner/plugin
 ```
 
 ## Configuration Files
@@ -62,6 +102,24 @@ The main configuration file contains:
 1. **Powerline Integration**: Beautiful shell prompt with git status
 2. **Smart Path Management**: Uses `fish_add_path` for idempotent path additions
 3. **Lazy Loading**: Python environment loads on-demand for faster startup
+
+## Cross-Shell Aliases (NEW)
+
+Fish now shares aliases with bash and zsh via `conf.d/01-aliases.fish`.
+
+### How It Works:
+- All shells source from `config/shells/common/aliases.sh`
+- Fish-specific adaptations in `conf.d/01-aliases.fish`
+- Aliases work consistently across all shells
+
+### Managing Aliases:
+```bash
+# Add new alias to all shells
+echo "alias newalias='command'" >> ~/.dotfiles/config/shells/common/aliases.sh
+
+# Reload to apply
+reload  # or exec fish
+```
 
 ## Abbreviations
 
@@ -234,11 +292,15 @@ Uses `fish_add_path` which:
 - Prevents duplicate entries
 - Maintains path order
 
-## Welcome Screen
+## Welcome Screen (DISABLED)
 
-The welcome screen displays on new terminal sessions showing:
+The welcome screen is now **disabled** for silent shell startup.
 
-### Features:
+### To Re-enable:
+1. Remove `~/.config/fish/functions/fish_greeting.fish`
+2. Uncomment `fish_welcome_screen` in `config.fish`
+
+### Original Features (when enabled):
 - Current date
 - Command reference table
 - Git commands section

@@ -7,7 +7,16 @@ Mobile-optimized quick reference for all dotfiles commands.
 t                           # tmux session selector
 tmux attach                 # attach to session
 tmux new -s NAME           # named session
-tmux detach                # detach (or C-b d)
+tmux detach                # detach (or C-a d)
+tmux ls                     # list sessions
+```
+
+## Tmux Resurrect (NEW)
+```
+C-a C-s                     # save session
+C-a C-r                     # restore session
+C-a I                       # install tmux plugins
+# Sessions auto-save every 15 minutes
 ```
 
 ## Alias Management
@@ -55,6 +64,24 @@ claude chat/code            # chat/code modes
 dotfiles status/doctor      # check system
 dotfiles sync/backup        # sync/backup system
 dotfiles clean              # clean symlinks/backups
+dotfiles add FILE           # add file to dotfiles
+```
+
+## Credential Management (NEW)
+```
+credential-sync sync U@H    # sync all from remote
+credential-sync list        # list managed creds
+credential-sync backup      # backup local creds
+credential-sync restore DIR # restore from backup
+# Options: --specific aws/gcloud/ssh/git
+```
+
+## Software Installation (NEW)
+```
+./install/modules/complete-setup.sh  # full setup
+./install/modules/nodejs-setup.sh    # Node/NVM
+./install/modules/fish-plugins.sh    # Fish plugins
+~/.dotfiles/dotfiles doctor          # check deps
 ```
 
 ## Editors & Utilities
@@ -64,12 +91,13 @@ v / vi / vim                # nvim (w/ fallbacks)
 ? cheat                     # this cheat sheet
 ```
 
-## Tmux Keys (C-b prefix)
+## Tmux Keys (C-a prefix)
 ```
-C-b c / n / p               # create/next/prev window
-C-b % / "                   # split vert/horiz
-C-b d                       # detach session
-C-b [                       # scroll mode (q=quit)
+C-a c / n / p               # create/next/prev window
+C-a | / -                   # split vert/horiz
+C-a d                       # detach session
+C-a [                       # scroll mode (q=quit)
+C-a r                       # reload tmux config
 ```
 
 ## Shell Features

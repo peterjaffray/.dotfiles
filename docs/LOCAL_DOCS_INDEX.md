@@ -23,14 +23,26 @@ This file provides cross-links to all documentation within this dotfiles reposit
   - **Context Recommendation**: 🔌 Include when working with MCP integrations
 
 ### Tool Documentation
-- **[Commands Cheat Sheet](../docs/COMMANDS.md)** - Mobile-optimized quick reference
+- **[Commands Cheat Sheet](../docs/COMMANDS.md)** - Mobile-optimized quick reference (UPDATED)
   - **Context Recommendation**: 📋 Include for quick command lookup
 - **[Alias Manager](../scripts/bin/alias-manager)** - Cross-shell alias management tool
   - **Context Recommendation**: 🔧 Include when working with aliases
+- **[Credential Sync](../scripts/bin/credential-sync)** - Secure credential syncing (NEW)
+  - **Context Recommendation**: 🔐 Include when syncing credentials between machines
 - **[Help System](../scripts/bin/help-system)** - Interactive documentation system
   - **Context Recommendation**: 📚 Include when updating documentation
 - **[Add-Alias Tool](../scripts/docs/add-alias-tool.md)** - Legacy alias tool (superseded by alias-manager)
   - **Context Recommendation**: ⚠️ Include only for historical reference or migration
+
+### Installation Documentation (NEW)
+- **[Complete Setup](../install/modules/complete-setup.sh)** - Full environment installation
+  - **Context Recommendation**: 🚀 Include when installing on new machines
+- **[Node.js Setup](../install/modules/nodejs-setup.sh)** - NVM and Node.js installation
+  - **Context Recommendation**: 📦 Include for Node.js environment setup
+- **[Fish Plugins](../install/modules/fish-plugins.sh)** - Fish shell plugin management
+  - **Context Recommendation**: 🐟 Include when configuring Fish shell
+- **[Tmux Plugins](../config/terminal/tmux/TMUX_PLUGINS.md)** - Tmux session persistence
+  - **Context Recommendation**: 🖥️ Include when working with tmux
 
 ## 🎯 Context Inclusion Guidelines
 
@@ -83,11 +95,15 @@ ls -la ~/.dotfiles/config/*/README.md 2>/dev/null
 **For Future Claude Code Instances:**
 
 1. **Documentation Access**: Use `? cheat` or `? 1` for quick command lookup
-2. **Alias Management**: Always refer to `/scripts/bin/alias-manager`, not legacy add-alias tool
-3. **Fish Compatibility**: Remember that Fish supports standard `alias` syntax, not just `abbr`
+2. **Alias Management**: Use `/config/shells/common/aliases.sh` for cross-shell aliases
+3. **Fish Compatibility**: Fish now uses `conf.d/01-aliases.fish` for alias compatibility
 4. **Cross-Shell Testing**: Test aliases in all three shells (bash, zsh, fish)
-5. **Help System**: Number-based navigation (press numbers, no arrow keys needed)
-6. **Mobile Format**: Use 2-space indent, max 50 chars/line for mobile compatibility
+5. **Credential Sync**: Use `credential-sync` to sync credentials, never commit to git
+6. **Software Dependencies**: Run `dotfiles doctor` to check missing dependencies
+7. **Tmux Sessions**: Use C-a prefix (not C-b), sessions auto-save every 15 minutes
+8. **Fish Welcome**: Disabled via `fish_greeting.fish` - remove to re-enable
+9. **Node.js**: Default v22 installed via NVM, pnpm as package manager
+10. **Installation**: Use `./install/modules/complete-setup.sh` for full setup
 
 ## 📂 File Tree Overview
 
@@ -95,11 +111,15 @@ ls -la ~/.dotfiles/config/*/README.md 2>/dev/null
 ~/.dotfiles/
 ├── CLAUDE.md                          # ✅ Always include
 ├── docs/
-│   ├── README.md                       # ✅ Always include  
-│   ├── COMMANDS.md                     # 📋 Quick reference
-│   └── LOCAL_DOCS_INDEX.md            # 📖 This file
+│   ├── README.md                       # ✅ Always include
+│   ├── COMMANDS.md                     # 📋 Quick reference (UPDATED)
+│   └── LOCAL_DOCS_INDEX.md            # 📖 This file (UPDATED)
 ├── config/
-│   ├── shells/fish/README.md          # 🐟 Fish work only
+│   ├── shells/
+│   │   ├── common/aliases.sh          # 🔧 Cross-shell aliases (NEW)
+│   │   └── fish/README.md             # 🐟 Fish work only
+│   ├── terminal/tmux/
+│   │   └── TMUX_PLUGINS.md            # 🖥️ Tmux persistence (NEW)
 │   └── claude/
 │       ├── CLAUDE.md                   # 🤖 Claude work only
 │       ├── agents/README.md            # 🤖 Agent development
@@ -107,12 +127,19 @@ ls -la ~/.dotfiles/config/*/README.md 2>/dev/null
 ├── scripts/
 │   ├── bin/
 │   │   ├── alias-manager               # 🔧 Alias management
+│   │   ├── credential-sync             # 🔐 Credential sync (NEW)
 │   │   └── help-system                 # 📚 Documentation
 │   └── docs/
 │       └── add-alias-tool.md           # ⚠️ Legacy reference only
+├── install/
+│   └── modules/                        # 🚀 Installation modules (NEW)
+│       ├── complete-setup.sh           # Full environment setup
+│       ├── nodejs-setup.sh             # Node.js/NVM setup
+│       └── fish-plugins.sh             # Fish plugin setup
 └── system/                             # 💾 Core libraries
+    └── dependency-manager.sh           # 📦 Software deps (NEW)
 ```
 
 ---
 
-**Last Updated**: 2025-01-10 - Added mobile-optimized cheat sheet and help system
+**Last Updated**: 2025-10-03 - Added complete software management, credential sync, and cross-shell aliases

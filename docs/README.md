@@ -12,6 +12,11 @@ A comprehensive, cross-platform dotfiles and utility scripts management system w
 - **Symlink Management** - Safe symlink creation with conflict detection
 - **Profile Support** - Different configurations for different machine roles
 - **Git Integration** - Version control for all configurations
+- **Dependency Management** - Automatic installation of missing software
+- **Credential Sync** - Secure credential syncing between machines (never in git)
+- **Tmux Session Persistence** - Save and restore tmux sessions with resurrect
+- **Cross-Shell Aliases** - Unified aliases working across bash, zsh, and fish
+- **Silent Shell Startup** - No welcome screens or banners
 
 ## 📁 Directory Structure
 
@@ -23,7 +28,7 @@ A comprehensive, cross-platform dotfiles and utility scripts management system w
 │   │   ├── fish/               # Fish shell configuration  
 │   │   ├── zsh/                # Zsh configuration
 │   │   └── common/             # Cross-shell configs
-│   │       ├── aliases         # Common aliases
+│   │       ├── aliases.sh      # Common aliases (NEW)
 │   │       ├── exports         # Environment variables
 │   │       ├── paths           # PATH management
 │   │       └── functions       # Shared functions
@@ -39,7 +44,8 @@ A comprehensive, cross-platform dotfiles and utility scripts management system w
 ├── scripts/                    # Utility scripts
 │   ├── bin/                    # Executable scripts
 │   │   ├── dotfiles           # Main management command
-│   │   └── add-alias          # Alias management tool
+│   │   ├── alias-manager      # Cross-shell alias management
+│   │   └── credential-sync    # Credential sync tool (NEW)
 │   ├── lib/                    # Shared script libraries
 │   ├── docs/                   # Script documentation
 │   └── config/                 # Script configurations
@@ -48,6 +54,7 @@ A comprehensive, cross-platform dotfiles and utility scripts management system w
 │   └── modules/                # Installation modules
 ├── system/                     # Core system libraries
 │   ├── backup-manager.sh       # Backup functionality
+│   ├── dependency-manager.sh   # Software dependency checks (NEW)
 │   ├── machine-detector.sh     # Machine profiling
 │   ├── symlink-manager.sh      # Symlink management
 │   └── secret-manager.sh       # Secret handling
@@ -64,22 +71,32 @@ A comprehensive, cross-platform dotfiles and utility scripts management system w
 
 ```bash
 # Clone and install in one command
-git clone <your-repo-url> ~/.config && ~/.config/install/install.sh
+git clone <your-repo-url> ~/.dotfiles && ~/.dotfiles/install/modules/complete-setup.sh
 ```
 
 ### Manual Installation
 
 ```bash
 # 1. Clone the repository
-git clone <your-repo-url> ~/.config
+git clone <your-repo-url> ~/.dotfiles
 
-# 2. Run the installer
-cd ~/.config
-./install/install.sh
+# 2. Run the complete installer (NEW)
+cd ~/.dotfiles
+./install/modules/complete-setup.sh
 
 # 3. Restart your shell or source the configuration
-source ~/.bashrc
+exec $SHELL
 ```
+
+### Dependency Installation (NEW)
+
+The system automatically installs missing dependencies:
+- Node.js (v22) via NVM
+- Fish shell with plugins
+- Tmux with session persistence
+- AWS CLI, gcloud SDK
+- Claude Code CLI
+- Neovim, pnpm, and more
 
 ### Installation Options
 
@@ -197,6 +214,46 @@ dotfiles secrets import .env
 dotfiles secrets list
 ```
 
+## 🔑 Credential Management (NEW)
+
+Securely sync credentials between machines without committing to git:
+
+### Credential Sync
+
+```bash
+# Sync all credentials from another machine
+credential-sync sync user@source-machine
+
+# Sync specific credentials only
+credential-sync sync user@source-machine --specific aws
+credential-sync sync user@source-machine --specific gcloud
+
+# Dry run to preview what will be synced
+credential-sync sync user@source-machine --dry-run
+
+# List all managed credential paths
+credential-sync list
+
+# Backup credentials locally
+credential-sync backup
+
+# Restore from backup
+credential-sync restore ~/.credential-backups/20240101_120000
+```
+
+### Supported Credentials
+
+- AWS CLI configuration and credentials
+- Google Cloud SDK settings
+- SSH keys and configuration
+- GPG keys
+- Claude Code settings and API keys
+- Git credentials
+- NPM tokens
+- Docker config
+- Kubernetes configs
+- GitHub CLI authentication
+
 ## 🖥 Machine Profiles
 
 The system automatically detects machine characteristics:
@@ -223,10 +280,12 @@ dotfiles machine compare
 
 ### Utility Scripts
 
-- **`add-alias`** - Smart alias management with conflict detection
+- **`alias-manager`** - Cross-shell alias management with conflict detection
 - **`dotfiles`** - Central management command
-- **`backup`** - Advanced backup functionality
-- **`secrets`** - Secret management tools
+- **`credential-sync`** - Secure credential syncing between machines (NEW)
+- **`complete-setup.sh`** - Full environment installation (NEW)
+- **`nodejs-setup.sh`** - Node.js and NVM setup (NEW)
+- **`fish-plugins.sh`** - Fish shell plugin management (NEW)
 
 ### Adding Your Own Scripts
 
@@ -241,16 +300,18 @@ dotfiles machine compare
 The system works with multiple shells:
 
 - **Bash** - Full support with enhanced features
-- **Fish** - Native configuration with compatibility layer
-- **Zsh** - Planned support
+- **Fish** - Native configuration with Fisher plugin manager (NEW)
+- **Zsh** - Full support with Oh My Zsh integration
 
 ### Common Configurations
 
 All shells share:
-- **Aliases** - Consistent command shortcuts
-- **Functions** - Useful utility functions  
+- **Unified Aliases** - Single source `aliases.sh` for all shells (NEW)
+- **Functions** - Useful utility functions
 - **Environment** - Same PATH and variables
 - **Secrets** - Automatic secret loading
+- **Silent Startup** - No welcome screens (fish_greeting disabled)
+- **Tmux Integration** - Session persistence across restarts
 
 ## 🔄 Synchronization
 
